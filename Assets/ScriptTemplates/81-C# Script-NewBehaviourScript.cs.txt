@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+    #ROOTNAMESPACEBEGIN#
+    /// <summary>
+    /// 
+    /// </summary>
+public class #SCRIPTNAME# : MonoBehaviour
+{
+    #region Inspector Fields
+
+    #endregion
+
+
+    #region Public Properties
+
+    #endregion
+
+
+    #region Event Handlers
+
+    #endregion
+
+
+    #region Internal Variables
+
+    #endregion
+
+
+    #region Data Constructs
+
+    #endregion
+
+
+    #region MonoBehaviour Loop
+    private void Start()
+    {
+        #NOTRIM#
+    }
+    private void Update()
+    {
+        #NOTRIM#
+    }
+    #endregion
+    
+
+    #region Internal Functions
+    
+    #endregion
+
+
+    #region Public API
+
+    #endregion
+}
+#ROOTNAMESPACEEND#
