@@ -4,9 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - RoomLight
   - SamplesInfoPanel
-  - Drawing
+  - ControllerTag
+  - Primitive
   layers:
   - Default
   - TransparentFX

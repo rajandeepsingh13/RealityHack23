@@ -8,6 +8,27 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/00/MainScene.unity
+    guid: a9c5efa55b4af4f8badd7574d751455b
+  - enabled: 0
+    path: Assets/Oculus/VR/Scenes/UI.unity
+    guid: 1f4d3ae64a10d434db219de8b14348e1
+  - enabled: 0
+    path: Assets/00/Scenes/PassthroughHands-Custom.unity
+    guid: 50a1be591c65145a095a9af10f272bce
+  - enabled: 0
+    path: Assets/00/Scenes/CreateWithPrefabs.unity
+    guid: c015fcb3025f07746851f66a9aaa0bc0
+  - enabled: 0
+    path: Assets/Samples/XR Interaction Toolkit/2.2.0/Starter Assets/DemoScene.unity
+    guid: 319dafa5c80f29f428dc1e0d03f04177
+  - enabled: 0
+    path: Assets/Oculus/SampleFramework/Usage/Passthrough.unity
+    guid: 58e5fc2486c774a4e88ac76261268d52
+  - enabled: 1
+    path: Assets/00/Scenes/PassthroughPrefabs.unity
+    guid: 06569ac0d1c1b554080d19fcb317e047
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: c3b94571f264b4254b90f2b4356461af,
       type: 2}
