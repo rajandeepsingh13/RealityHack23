@@ -16,6 +16,8 @@ public class NodeCanvas : MonoBehaviour
 
 
     #region Public Properties
+    public GameObject PandaGameObject => _pandaGameObject;
+    public Transform PandaTransform => _pandaTransform;
     #endregion
 
 
@@ -24,7 +26,8 @@ public class NodeCanvas : MonoBehaviour
 
 
     #region Internal Variables
-    private GameObject _objectToActOn;
+    private GameObject _pandaGameObject;
+    private Transform _pandaTransform;
     
     private List<NodeBase> _containedNodes = new();
     #endregion
@@ -39,13 +42,19 @@ public class NodeCanvas : MonoBehaviour
     {
         // check if we've added any preset node functions to the canvas
         _containedNodes = _container.GetComponentsInChildren<NodeBase>(true).ToList();
+        for (int i = 0; i < _containedNodes.Count; i++)
+        {
+            _containedNodes[i].SetParentCanvas(this);
+        }
     }
     private void Start()
     {
         // call all the contained nodes start functions
         for (int i = 0; i < _containedNodes.Count; i++)
         {
-            _containedNodes[i].ExecuteOnStart();
+            var node = _containedNodes[i];
+            node.ExecuteOnStart();
+            node.InvokeOnStartExecuted();
         }
     }
     private void Update()
@@ -53,13 +62,20 @@ public class NodeCanvas : MonoBehaviour
         // call all the contained nodes update functions
         for (int i = 0; i < _containedNodes.Count; i++)
         {
-            _containedNodes[i].ExecuteOnUpdate();
+            var node = _containedNodes[i];
+            node.ExecuteOnUpdate();
+            node.InvokeOnUpdateExecuted();
         }
     }
     #endregion
 
 
     #region Internal Functions
+    internal void SetPandaObject(GameObject pandaObject)
+    {
+        _pandaGameObject = pandaObject;
+        _pandaTransform = pandaObject.transform;
+    }
     #endregion
 
 

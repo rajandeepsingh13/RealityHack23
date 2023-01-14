@@ -1,21 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 /// <summary>
 /// 
 /// </summary>
-public class LabeledSlider : MonoBehaviour
+public class TriggerPressed : NodeBase
 {
     #region Inspector Fields
-    [Header("Components")]
-    [SerializeField] private TMP_Text _label;
-    [SerializeField] private Slider _slider;
-    [SerializeField] private TMP_Text _value;
     #endregion
 
 
@@ -24,7 +17,6 @@ public class LabeledSlider : MonoBehaviour
 
 
     #region Event Handlers
-    public event Action<float> OnValueChanged;
     #endregion
 
 
@@ -37,18 +29,20 @@ public class LabeledSlider : MonoBehaviour
 
 
     #region MonoBehaviour Loop
-    private void Awake()
-    {
-        _slider.onValueChanged.AddListener(f =>
-        {
-            OnValueChanged.Invoke(f);
-            _value.text = f.ToString();
-        });
-    }
+    private void Start() { }
+    private void Update() { }
     #endregion
 
 
     #region Internal Functions
+    internal override void ExecuteOnStart()
+    {
+        
+    }
+    internal override void ExecuteOnUpdate()
+    {
+        
+    }
     #endregion
 
 

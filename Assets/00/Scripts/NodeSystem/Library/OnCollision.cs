@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 
 /// </summary>
-public class Trigger : NodeBase
+public class OnCollision : NodeBase
 {
     #region Inspector Fields
     #endregion

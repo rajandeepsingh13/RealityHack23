@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
@@ -9,6 +11,9 @@ using UnityEngine;
 public class LabeledDropdown : MonoBehaviour
 {
     #region Inspector Fields
+    [Header("Components")]
+    [SerializeField] private TMP_Text _label;
+    [SerializeField] private TMP_Dropdown _dropdown;
     #endregion
 
 
@@ -17,6 +22,7 @@ public class LabeledDropdown : MonoBehaviour
 
 
     #region Event Handlers
+    public event Action<int> OnValueChanged;
     #endregion
 
 
@@ -29,8 +35,10 @@ public class LabeledDropdown : MonoBehaviour
 
 
     #region MonoBehaviour Loop
-    private void Start() { }
-    private void Update() { }
+    private void Awake()
+    {
+        _dropdown.onValueChanged.AddListener(OnValueChanged.Invoke);
+    }
     #endregion
 
 

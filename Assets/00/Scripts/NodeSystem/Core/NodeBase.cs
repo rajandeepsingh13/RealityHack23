@@ -18,12 +18,15 @@ public abstract class NodeBase : MonoBehaviour
     #endregion
 
 
-    #region Event Handlers
+    #region Events
+    public event Action OnStartExecuted;
+    public event Action OnUpdateExecuted;
     #endregion
 
 
     #region Internal Variables
     internal string _guid = "";
+    internal NodeCanvas _parentNodeCanvas;
     #endregion
 
 
@@ -40,8 +43,15 @@ public abstract class NodeBase : MonoBehaviour
 
 
     #region Internal Functions
+    internal void SetParentCanvas(NodeCanvas nodeCanvas)
+    {
+        _parentNodeCanvas = nodeCanvas;
+    }
     internal abstract void ExecuteOnStart();
     internal abstract void ExecuteOnUpdate();
+
+    internal void InvokeOnStartExecuted() => OnStartExecuted?.Invoke();
+    internal void InvokeOnUpdateExecuted() => OnUpdateExecuted?.Invoke();
     #endregion
 
 
