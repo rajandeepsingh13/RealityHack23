@@ -1,0 +1,45 @@
+ManifestFileVersion: 0
+CRC: 747427656
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7cf2e182abeca47705cdf1137b4f5b16
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b30fce1a9ad74efb72be6c308c56e365
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/00/Materials/PrimitiveColors/Green.mat
+- Assets/Oculus/VR/Meshes/OculusTouchForQuestAndRiftS/Materials/OculusTouchForQuestAndRiftS_Material.mat
+- Assets/00/Materials/PrimitiveColors/Yellow.mat
+- Assets/00/Materials/PrimitiveColors/Black.mat
+- Assets/Oculus/VR/Meshes/MetaQuestTouchPro/Materials/MetaQuestProLeft_Material.mat
+- Assets/00/Materials/PrimitiveColors/Purple.mat
+- Assets/Oculus/SampleFramework/Usage/Locomotion/Materials/DebugDrawLine.mat
+- Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat
+- Assets/Oculus/SampleFramework/Usage/Passthrough/Materials/LogoWhite.mat
+- Assets/Oculus/VR/Meshes/OculusTouchForRift/Materials/OculusTouchForRift_Material.mat
+- Assets/00/Materials/PrimitiveColors/Orange.mat
+- Assets/Oculus/SampleFramework/Usage/Passthrough/Materials/DropShadow.mat
+- Assets/00/Materials/PrimitiveColors/White.mat
+- Assets/00/Materials/PrimitiveColors/Red.mat
+- Assets/Oculus/VR/Meshes/MetaQuestTouchPro/Materials/batteryIndicator_mat.mat
+- Assets/Oculus/SampleFramework/Usage/Passthrough/Materials/FlashlightGlow.mat
+- Assets/Oculus/VR/Meshes/OculusTouchForQuest2/Materials/OculusTouchForQuest2_MAT.mat
+- Assets/00/Materials/PrimitiveColors/Brown.mat
+- Assets/00/Materials/PrimitiveColors/Blue.mat
+- Assets/Oculus/VR/Meshes/MetaQuestTouchPro/Materials/MetaQuestProRight_Material.mat
+- Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
+- Assets/Oculus/SampleFramework/Usage/Passthrough/Materials/WhiteUnlit.mat
+Dependencies:
+- D:/GitRepos/RealityHack23/OVRAssetBundles/OVRMasterBundle/asset_png0
+- D:/GitRepos/RealityHack23/OVRAssetBundles/OVRMasterBundle/asset_shader0
+- D:/GitRepos/RealityHack23/OVRAssetBundles/OVRMasterBundle/asset_tga0
