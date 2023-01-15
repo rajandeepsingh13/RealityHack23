@@ -52,7 +52,7 @@ public abstract class NodeBase : MonoBehaviour
     /// <summary>
     /// This is a hardcoded library placement identifier unique for every node
     /// to ensure proper type loading when loading in save data and reconstructing
-    /// a node canvas. if this is changed, previous save data wont get loading in properly.
+    /// a node canvas. If this is changed, previous save data wont get loading in properly.
     /// </summary>
     internal abstract int GetLibraryID();
     
@@ -74,8 +74,31 @@ public abstract class NodeBase : MonoBehaviour
     /// </summary>
     internal abstract void ExecuteOnUpdate();
 
-    internal abstract NodeSaveData GetNodeSaveData();
-    internal abstract void ApplyNodeSaveData(NodeSaveData saveData);
+    internal NodeSaveData GetNodeSaveData()
+    {
+        // standard part that should be common for every node
+        NodeSaveData saveData = new NodeSaveData();
+        saveData.LibraryID = GetLibraryID();
+        saveData.Guid = _guid;
+        saveData.CanvasGuid = _parentNodeCanvas._guid;
+        saveData.ComponentDataArray = GetAllComponentData();
+
+        return saveData;
+    }
+    internal void ApplyNodeSaveData(NodeSaveData saveData)
+    {
+        SetAllComponentData(saveData.ComponentDataArray);
+    }
+    
+    /// <summary>
+    /// Manually get save data from the components included in the node scripts
+    /// </summary>
+    internal abstract ComponentData[] GetAllComponentData();
+
+    /// <summary>
+    /// Manually set component data loaded from save file
+    /// </summary>
+    internal abstract void SetAllComponentData(ComponentData[] componentDataArray);
     #endregion
 
 

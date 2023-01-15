@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ProgrammingManager : MonoBehaviour
 {
+    public static GameObject selectedPanda;
+
+    public GameObject programmingCanvas;
     // Start is called before the first frame update
     void Start()
     {

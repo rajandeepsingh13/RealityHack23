@@ -18,6 +18,7 @@ using UnityEngine;
 /// </summary>
 [Serializable] public struct NodeSaveData
 {
+    public int LibraryID;
     public string Guid;
     public string CanvasGuid;
     public ComponentData[] ComponentDataArray;

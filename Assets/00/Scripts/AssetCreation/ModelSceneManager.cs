@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ModelSceneManager : MonoBehaviour
 {
-
     public static int currentColor;
 
     public static int currentAxis = 0;
@@ -17,14 +16,15 @@ public class ModelSceneManager : MonoBehaviour
 
     public ControllerTrigger controllerTrigger;
 
-
     public GameObject sphere;
     public GameObject cube;
     public GameObject capsule;
 
-    private bool isManupilating = false;
+    private bool isManipulating = false;
     private bool isRegrab = false;
     private GameObject manipulatingObject;
+
+    public GameObject createCanvas;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +35,7 @@ public class ModelSceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isManupilating)
+        if (isManipulating)
         {
             Vector3 controllerPos = OVRInput.GetLocalControllerPosition(controller);
             Quaternion controllerRot = OVRInput.GetLocalControllerRotation(controller);
@@ -44,14 +44,14 @@ public class ModelSceneManager : MonoBehaviour
 
             if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller))
             {
-                isManupilating = false;
+                isManipulating = false;
                 manipulatingObject = null;
                 return;
             }
 
             if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, controller) && isRegrab)
             {
-                isManupilating = false;
+                isManipulating = false;
                 manipulatingObject = null;
                 isRegrab = false;
                 return;
@@ -98,7 +98,7 @@ public class ModelSceneManager : MonoBehaviour
         {
             if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller) && controllerTrigger.currentPrimitive)
             {
-                isManupilating = true;
+                isManipulating = true;
                 isRegrab = true;
                 manipulatingObject = controllerTrigger.currentPrimitive;
             }
@@ -119,48 +119,60 @@ public class ModelSceneManager : MonoBehaviour
     {
         manipulatingObject = Instantiate(sphere, OVRInput.GetLocalControllerPosition(controller), Quaternion.identity);
         manipulatingObject.GetComponent<Renderer>().material = allMaterials[currentColor];
-        isManupilating = true;
+        isManipulating = true;
     }
 
     public void OnCreateCube()
     {
         manipulatingObject = Instantiate(cube, OVRInput.GetLocalControllerPosition(controller), Quaternion.identity);
         manipulatingObject.GetComponent<Renderer>().material = allMaterials[currentColor];
-        isManupilating = true;
+        isManipulating = true;
     }
 
     public void OnCreateCapsule()
     {
         manipulatingObject = Instantiate(capsule, OVRInput.GetLocalControllerPosition(controller), Quaternion.identity);
         manipulatingObject.GetComponent<Renderer>().material = allMaterials[currentColor];
-        isManupilating = true;
+        isManipulating = true;
     }
 
 
     public void Merge()
     {
-        var premitives = GameObject.FindGameObjectsWithTag("Primitive");
-        if (premitives.Length == 0)
+        Debug.Log("merging");
+        var primitives = GameObject.FindGameObjectsWithTag("Primitive");
+        Debug.Log("prims are " + primitives);
+        if (primitives.Length == 0) {
+            Debug.Log("no prims");
             return;
-        var centerOfPandaParent = new Vector3(0f, 0f, 0f);
-        foreach (var prem in premitives)
-        {
-            centerOfPandaParent += prem.transform.position;
-            prem.tag = "PandaComponent";
         }
-        centerOfPandaParent /= premitives.Length;
+        var centerOfPandaParent = new Vector3(0f, 0f, 0f);
+        foreach (var prim in primitives)
+        {
+            centerOfPandaParent += prim.transform.position;
+            prim.tag = "PandaComponent";
+        }
+        centerOfPandaParent /= primitives.Length;
         var pandaParent = new GameObject("Panda");
         pandaParent.transform.position = centerOfPandaParent;
         pandaParent.tag = "Panda";
-        foreach (var prem in premitives)
+        foreach (var prim in primitives)
         {
-            prem.tag = "PandaComponent";
-            prem.transform.SetParent(pandaParent.transform);
+            prim.tag = "PandaComponent";
+            prim.transform.SetParent(pandaParent.transform);
         }
 
         //Disable create
-        //enable the progtramiing canvas
-        //Static variable selectedPanda. = pandaParent
+        Debug.Log("set create canvas active false");
+        createCanvas.SetActive(false);
 
+        //enable the progtramiing canvas
+        ProgrammingManager pm = GameObject.FindObjectsOfType<ProgrammingManager>()[0];
+        if (pm != null) {
+            pm.programmingCanvas.SetActive(true);
+        }
+
+        //Static variable selectedPanda. = pandaParent
+        ProgrammingManager.selectedPanda = pandaParent;
     }
 }

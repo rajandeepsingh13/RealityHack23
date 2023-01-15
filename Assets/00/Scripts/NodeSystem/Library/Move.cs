@@ -90,25 +90,18 @@ public class Move : NodeBase
         _parentNodeCanvas.PandaTransform.position = currentPos;
     }
 
-    internal override NodeSaveData GetNodeSaveData()
+    internal override ComponentData[] GetAllComponentData()
     {
-        // manually get save data from the components we've included
         List<ComponentData> allNodeComponentData = new();
         allNodeComponentData.Add(_axisDropdown.GetComponentData()); // 0
         allNodeComponentData.Add(_speedSlider.GetComponentData()); // 1
         
-        // standard part that should be common for every node
-        NodeSaveData saveData = new NodeSaveData();
-        saveData.Guid = _guid;
-        saveData.CanvasGuid = _parentNodeCanvas._guid;
-        saveData.ComponentDataArray = allNodeComponentData.ToArray();
-
-        return saveData;
+        return allNodeComponentData.ToArray();
     }
-    internal override void ApplyNodeSaveData(NodeSaveData saveData)
+    internal override void SetAllComponentData(ComponentData[] componentDataArray)
     {
-        _axisDropdown.SetComponentData(saveData.ComponentDataArray[0]);
-        _speedSlider.SetComponentData(saveData.ComponentDataArray[1]);
+        _axisDropdown.SetComponentData(componentDataArray[0]);
+        _speedSlider.SetComponentData(componentDataArray[1]);
     }
     #endregion
 
