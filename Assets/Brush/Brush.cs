@@ -47,6 +47,7 @@ public class Brush : MonoBehaviour {
 
             // Instantiate a copy of the Brush Stroke prefab.
             GameObject brushStrokeGameObject = Instantiate(_brushStrokePrefab);
+            brushStrokeGameObject.tag = "Primitive";
             currentPanda.AddMesh(brushStrokeGameObject);
 
             // Grab the BrushStroke component from it
