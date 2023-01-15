@@ -14,8 +14,8 @@ namespace Nodes.Library
         #region Inspector Fields
         [SerializeField] private LabeledToggle _enableToggle;
         [SerializeField] private LabeledDropdown _directionDropdown;
-        [SerializeField] private LabeledToggle _randomSpeedToggle;
         [SerializeField] private LabeledSlider _speedSlider;
+        [SerializeField] private LabeledToggle _randomTimeToogle;
         #endregion
 
 
@@ -29,6 +29,7 @@ namespace Nodes.Library
         private bool isFollowing = false;
         private float spawneeSpeed = 0.1f;
         private Vector3 anchorPos;
+        private bool randomTimeValue = true;
 
         #endregion
 
@@ -52,15 +53,25 @@ namespace Nodes.Library
             _enableToggle.OnValueChanged += EnableToggleOnValueChanged;
             _directionDropdown.OnValueChanged += DirectionDropdownOnValueChanged;
             _speedSlider.OnValueChanged += SpeedSliderOnValueChanged;
+            _randomTimeToogle.OnValueChanged += _randomTimeToogle_OnValueChanged;
 
             spawneesPool = new List<GameObject>();
         }
+
+        
+
         private void Start() { }
         private void Update() { }
         #endregion
 
 
         #region Event Handlers
+
+        private void _randomTimeToogle_OnValueChanged(bool obj)
+        {
+            randomTimeValue = obj;
+        }
+
         private void SpeedSliderOnValueChanged(float speed)
         {
             spawneeSpeed = speed;
@@ -79,6 +90,7 @@ namespace Nodes.Library
         {
             if (obj)
             {
+                Debug.LogWarning("Lqqwdqwwqdqqwddddd");
                 spawnCoroutine = StartCoroutine(CreateBabes());
             }
             else
@@ -89,16 +101,28 @@ namespace Nodes.Library
 
         private IEnumerator CreateBabes()
         {
+            Debug.LogWarning("IsPlayMode" + ProgrammingManager.isPlayMode);
             //if in play mode
             while (ProgrammingManager.isPlayMode)
             {
-
+                Debug.LogWarning("instnactaed");
                 //Create coorutine that create new copies every x seconds.
                 GameObject enemy = Instantiate(ProgrammingManager.selectedPanda);
+                enemy.transform.position = ProgrammingManager.selectedPanda.transform.position + new Vector3(0.1f, 0.1f, 0.1f);
+
                 //All the children go in an array
                 spawneesPool.Add(enemy);
 
-                yield return new WaitForSeconds(Random.Range(0.5f, 3f));
+                Debug.LogWarning(spawneesPool.Count);
+
+                if (randomTimeValue)
+                {
+                    yield return new WaitForSeconds(Random.Range(0.5f, 3f));
+                }
+                else
+                {
+                    yield return new WaitForSeconds(1f);
+                }
             }
         }
         #endregion
@@ -119,26 +143,37 @@ namespace Nodes.Library
             //If distance too much, destroy
             //else position ++
 
+            Debug.LogWarning("UPDAAAAAAAAAAAAAAAAATEEEEEEEEEE RUNNNNNNNNNNING");
+
             foreach (var spawnee in spawneesPool)
             {
-                var dist = Vector3.Distance(anchorPos, spawnee.transform.position);
-
-                if (dist >= 0.01f)
+                if (!isFollowing)
                 {
+                    var dist = Vector3.Distance(anchorPos, spawnee.transform.position);
 
-                    if (!isFollowing)
-                    {
+                    //if (dist >= 0.01f)
+                    //{
                         spawnee.transform.position = Vector3.MoveTowards(spawnee.transform.position, anchorPos, spawneeSpeed * Time.deltaTime);
-                    }
-                    else
-                    {
-                        spawnee.transform.position = Vector3.MoveTowards(spawnee.transform.position, OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch), spawneeSpeed * Time.deltaTime);
-                    }
+                    //}
+                    //else
+                    //{
+                    //    spawneesPool.Remove(spawnee);
+                    //    GameObject.Destroy(spawnee);
+                    //}
                 }
                 else
                 {
-                    spawneesPool.Remove(spawnee);
-                    GameObject.Destroy(spawnee);
+                    var dist = Vector3.Distance(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch), spawnee.transform.position);
+
+                    //if (dist >= 0.01f)
+                    //{
+                        spawnee.transform.position = Vector3.MoveTowards(spawnee.transform.position, OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch), spawneeSpeed * Time.deltaTime);
+                    //}
+                    //else
+                    //{
+                    //    spawneesPool.Remove(spawnee);
+                    //    GameObject.Destroy(spawnee);
+                    //}
                 }
             }
         }
