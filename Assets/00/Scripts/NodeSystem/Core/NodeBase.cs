@@ -85,12 +85,20 @@ public abstract class NodeBase : MonoBehaviour
 
         return saveData;
     }
+    internal void ApplyNodeSaveData(NodeSaveData saveData)
+    {
+        SetAllComponentData(saveData.ComponentDataArray);
+    }
     
     /// <summary>
     /// Manually get save data from the components included in the node scripts
     /// </summary>
     internal abstract ComponentData[] GetAllComponentData();
-    internal abstract void ApplyNodeSaveData(NodeSaveData saveData);
+
+    /// <summary>
+    /// Manually set component data loaded from save file
+    /// </summary>
+    internal abstract void SetAllComponentData(ComponentData[] componentDataArray);
     #endregion
 
 

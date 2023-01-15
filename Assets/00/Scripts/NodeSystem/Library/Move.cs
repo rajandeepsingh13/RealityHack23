@@ -98,10 +98,10 @@ public class Move : NodeBase
         
         return allNodeComponentData.ToArray();
     }
-    internal override void ApplyNodeSaveData(NodeSaveData saveData)
+    internal override void SetAllComponentData(ComponentData[] componentDataArray)
     {
-        _axisDropdown.SetComponentData(saveData.ComponentDataArray[0]);
-        _speedSlider.SetComponentData(saveData.ComponentDataArray[1]);
+        _axisDropdown.SetComponentData(componentDataArray[0]);
+        _speedSlider.SetComponentData(componentDataArray[1]);
     }
     #endregion
 

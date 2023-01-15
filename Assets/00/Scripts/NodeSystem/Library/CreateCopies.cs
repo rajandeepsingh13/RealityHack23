@@ -89,12 +89,12 @@ public class CreateCopies : NodeBase
         
         return allNodeComponentData.ToArray();
     }
-    internal override void ApplyNodeSaveData(NodeSaveData saveData)
+    internal override void SetAllComponentData(ComponentData[] componentDataArray)
     {
-        _enableToggle.SetComponentData(saveData.ComponentDataArray[0]);
-        _directionDropdown.SetComponentData(saveData.ComponentDataArray[1]);
-        _randomSpeedToggle.SetComponentData(saveData.ComponentDataArray[2]);
-        _speedSlider.SetComponentData(saveData.ComponentDataArray[3]);
+        _enableToggle.SetComponentData(componentDataArray[0]);
+        _directionDropdown.SetComponentData(componentDataArray[1]);
+        _randomSpeedToggle.SetComponentData(componentDataArray[2]);
+        _speedSlider.SetComponentData(componentDataArray[3]);
     }
     #endregion
 
