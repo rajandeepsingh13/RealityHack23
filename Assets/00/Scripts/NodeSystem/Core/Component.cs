@@ -51,6 +51,24 @@ public abstract class Component<T> : MonoBehaviour
     {
         OnValueChanged?.Invoke(value);
     }
+    
+    internal ComponentData GetComponentData()
+    {
+        ComponentData componentData = new();
+        componentData.Dataype = typeof(T);
+        componentData.Data = _value;
+        return componentData;
+    }
+    internal void SetComponentData(ComponentData data)
+    {
+        if (data.Dataype != typeof(T))
+        {
+            Debug.LogError("Data type does not match!");
+            return;
+        }
+
+        SetValue((T)data.Data);
+    }
     #endregion
 
 
