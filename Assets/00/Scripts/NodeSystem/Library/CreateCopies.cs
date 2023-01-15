@@ -30,6 +30,7 @@ namespace Nodes.Library
         private float spawneeSpeed = 0.1f;
         private Vector3 anchorPos;
         private bool randomTimeValue = true;
+        private bool anchorPlaced = false;
 
         #endregion
 
@@ -80,11 +81,6 @@ namespace Nodes.Library
         {
             //If the user selects "Constant follow", set isFollowing to true
             isFollowing = obj == 1;
-
-            if (!isFollowing)
-            {
-                anchorPos = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-            }
         }
         private void EnableToggleOnValueChanged(bool obj)
         {
@@ -105,15 +101,19 @@ namespace Nodes.Library
             //if in play mode
             while (ProgrammingManager.isPlayMode)
             {
-                Debug.LogWarning("instnactaed");
-                //Create coorutine that create new copies every x seconds.
-                GameObject enemy = Instantiate(ProgrammingManager.selectedPanda);
-                enemy.transform.position = ProgrammingManager.selectedPanda.transform.position + new Vector3(0.1f, 0.1f, 0.1f);
+                if (anchorPlaced)
+                {
+                    Debug.LogWarning("instnactaed");
+                    //Create coorutine that create new copies every x seconds.
+                    GameObject enemy = Instantiate(ProgrammingManager.selectedPanda);
+                    enemy.transform.position = ProgrammingManager.selectedPanda.transform.position + new Vector3(0.1f, 0.1f, 0.1f);
 
-                //All the children go in an array
-                spawneesPool.Add(enemy);
+                    //All the children go in an array
+                    spawneesPool.Add(enemy);
 
-                Debug.LogWarning(spawneesPool.Count);
+                    Debug.LogWarning(spawneesPool.Count);
+
+                }
 
                 if (randomTimeValue)
                 {
@@ -143,7 +143,11 @@ namespace Nodes.Library
             //If distance too much, destroy
             //else position ++
 
-            Debug.LogWarning("UPDAAAAAAAAAAAAAAAAATEEEEEEEEEE RUNNNNNNNNNNING");
+            if (OVRInput.GetDown(OVRInput.Button.Two))
+            {
+                anchorPos = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+                anchorPlaced = true;
+            }
 
             foreach (var spawnee in spawneesPool)
             {
