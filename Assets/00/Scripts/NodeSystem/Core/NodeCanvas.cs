@@ -29,7 +29,7 @@ public class NodeCanvas : MonoBehaviour
     private GameObject _pandaGameObject;
     private Transform _pandaTransform;
 
-    private bool _play = false;
+    private bool _play = true;
     
     private List<NodeBase> _containedNodes = new();
     #endregion

@@ -1,149 +1,77 @@
 {
-    "m_SelectedDeviceId": "230YC01DB7016J",
+    "m_SelectedDeviceId": "1WMHHA65W82064",
     "m_SelectedPackage": {
-        "deviceId": "230YC01DB7016J",
+        "deviceId": "1WMHHA65W82064",
         "name": "com.DefaultCompany.PandaWheels",
-        "processId": 18209,
+        "processId": 27621,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
         {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 21090,
-            "exited": true
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 21877,
-            "exited": true
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 27852,
-            "exited": true
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 29038,
-            "exited": true
-        },
-        {
-            "deviceId": "230YC01DB7016J",
+            "deviceId": "1WMHHA65W82064",
             "name": "com.oculus.shellenv",
-            "processId": 1940,
+            "processId": 3282,
             "exited": false
         },
         {
-            "deviceId": "230YC01DB7016J",
+            "deviceId": "1WMHHA65W82064",
             "name": "com.DefaultCompany.PandaWheels",
-            "processId": 31466,
+            "processId": 22561,
+            "exited": true
+        },
+        {
+            "deviceId": "1WMHHA65W82064",
+            "name": "com.DefaultCompany.PandaWheels",
+            "processId": 22868,
+            "exited": true
+        },
+        {
+            "deviceId": "1WMHHA65W82064",
+            "name": "com.DefaultCompany.PandaWheels",
+            "processId": 23413,
+            "exited": true
+        },
+        {
+            "deviceId": "1WMHHA65W82064",
+            "name": "com.DefaultCompany.PandaWheels",
+            "processId": 24229,
+            "exited": true
+        },
+        {
+            "deviceId": "1WMHHA65W82064",
+            "name": "com.DefaultCompany.PandaWheels",
+            "processId": 25212,
             "exited": false
         },
         {
-            "deviceId": "230YC01DB7016J",
+            "deviceId": "1WMHHA65W82064",
             "name": "com.DefaultCompany.PandaWheels",
-            "processId": 32344,
+            "processId": 25640,
             "exited": false
         },
         {
-            "deviceId": "230YC01DB7016J",
+            "deviceId": "1WMHHA65W82064",
             "name": "com.DefaultCompany.PandaWheels",
-            "processId": 998,
+            "processId": 26150,
             "exited": false
         },
         {
-            "deviceId": "230YC01DB7016J",
+            "deviceId": "1WMHHA65W82064",
             "name": "com.DefaultCompany.PandaWheels",
-            "processId": 2624,
+            "processId": 26645,
             "exited": false
         },
         {
-            "deviceId": "230YC01DB7016J",
+            "deviceId": "1WMHHA65W82064",
             "name": "com.DefaultCompany.PandaWheels",
-            "processId": 3827,
+            "processId": 27144,
             "exited": false
         },
         {
-            "deviceId": "230YC01DB7016J",
+            "deviceId": "1WMHHA65W82064",
             "name": "com.DefaultCompany.PandaWheels",
-            "processId": 6074,
-            "exited": false
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 7151,
-            "exited": false
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 8072,
-            "exited": false
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 8530,
-            "exited": false
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 11041,
-            "exited": false
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 11525,
-            "exited": false
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 12886,
-            "exited": false
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 15176,
-            "exited": false
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 15852,
-            "exited": false
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 16417,
-            "exited": false
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 17055,
-            "exited": false
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 17610,
-            "exited": false
-        },
-        {
-            "deviceId": "230YC01DB7016J",
-            "name": "com.DefaultCompany.PandaWheels",
-            "processId": 18209,
+            "processId": 27621,
             "exited": false
         }
     ],

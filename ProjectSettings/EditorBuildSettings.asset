@@ -32,6 +32,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00/Scenes/PANDAWHEELS.unity
     guid: 09016c1714e3fc743beabd3a56c717da
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/00/Scenes/PassthroughPrefabsRecording.unity
+    guid: 469de7a5062764ab2b3266e64e0cfa23
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: c3b94571f264b4254b90f2b4356461af,
       type: 2}
