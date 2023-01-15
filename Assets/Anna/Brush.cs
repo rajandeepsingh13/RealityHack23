@@ -27,6 +27,7 @@ public class Brush : MonoBehaviour {
     }
 
     private void Update() {
+        brushTip.GetComponentsInChildren<MeshRenderer>()[0].material = material;
         
         // Get the position & rotation of the controller
         Vector3 position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);

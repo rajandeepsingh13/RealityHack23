@@ -54,7 +54,7 @@ public class Panda : MonoBehaviour
     {
         _gameObject = gameObject;
         _transform = transform;
-        _localNodeCanvas = NodeLibrary.Instance.GetFreshCanvas();
+        //_localNodeCanvas = NodeLibrary.Instance.GetFreshCanvas();
         
         _spawnAudioSource = gameObject.AddComponent<AudioSource>();
         _spawnAudioSource.loop = false;
@@ -125,7 +125,7 @@ public class Panda : MonoBehaviour
                 Destroy(other.gameObject);
             }
             GameObject.FindObjectsOfType<Score>()[0].ChangeScoreBy(scoreChangeOnCollision);
-            PlayAudioSource(collisionAudioSource);
+            PlayAudioSource(_collisionAudioSource);
         }
     }
     #endregion

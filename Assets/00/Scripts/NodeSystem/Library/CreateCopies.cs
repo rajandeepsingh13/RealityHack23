@@ -30,7 +30,7 @@ namespace Nodes.Library
         private List<GameObject> spawneesPool;
         private Coroutine spawnCoroutine;
         private bool isFollowing = false;
-        private float spawneeSpeed = 0.1f;
+        private float spawneeSpeed = 1f;
         private Vector3 anchorPos;
         private float minTimeInterval = 1f;
         private float maxTimeInterval = 10f;
@@ -158,6 +158,7 @@ namespace Nodes.Library
 
             if (OVRInput.GetDown(OVRInput.Button.Two))
             {
+                Debug.LogWarning("placing anchor");
                 anchorPos = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
                 anchorPlaced = true;
             }

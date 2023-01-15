@@ -26,6 +26,8 @@ public class ModelSceneManager : MonoBehaviour
     private GameObject manipulatingObject;
 
     public GameObject createCanvas;
+    public GameObject NodeCanvasPrefab;
+    public Transform SceneObjectsParent;
 
     // Start is called before the first frame update
     void Start()
@@ -181,13 +183,27 @@ public class ModelSceneManager : MonoBehaviour
         Debug.Log("set create canvas active false");
         createCanvas.SetActive(false);
 
+
+        //Instanciate a new canvas
+        
+        // assign it to pm.programmingcanvas
         //enable the progtramiing canvas
         ProgrammingManager pm = GameObject.FindObjectsOfType<ProgrammingManager>()[0];
         if (pm != null) {
+            //pm.programmingCanvas = Instantiate(NodeCanvasPrefab, SceneObjectsParent);
             pm.programmingCanvas.SetActive(true);
         }
 
         //Static variable selectedPanda. = pandaParent
         ProgrammingManager.selectedPanda = pandaParent;
+    }
+
+    public void Finish(){
+        ProgrammingManager pm = GameObject.FindObjectsOfType<ProgrammingManager>()[0];
+        if (pm != null) {
+            pm.programmingCanvas.transform.localScale = new Vector3(0f, 0f, 0f);
+            pm = null;
+        }
+        createCanvas.SetActive(true);
     }
 }
