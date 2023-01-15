@@ -19,6 +19,12 @@ public class CreateCopies : NodeBase
     #region Public Properties
     #endregion
 
+    #region Private Properties
+
+    private IEnumerator 
+
+    #endregion
+
 
     #region Event Handlers
     #endregion
@@ -61,8 +67,26 @@ public class CreateCopies : NodeBase
     }
     private void EnableToggleOnValueChanged(bool obj)
     {
-        
+        //Create a duplicate current thingy
+        if (obj == true)
+        {
+
+        }
     }
+
+    private IEnumerator CreateBabes() {
+        //if in play mode
+        while (true) {
+            break;
+            yield return new WaitForSeconds(Random.Range(0.5f, 3f));
+        }
+    }
+
+    //Create coorutine that create new copies every x seconds.
+    //All the children go in an array
+    //Loop first checks the distance between the child in array and og parrent (static selected panda)
+    //If distance too much, destroy
+    //else position ++
     #endregion
 
 
