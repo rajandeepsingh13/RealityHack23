@@ -26,6 +26,7 @@ public class LabeledSlider : Component<float>
 
 
     #region Internal Variables
+    private int _previewDecimalPlaces = 2;
     #endregion
 
 
@@ -39,7 +40,7 @@ public class LabeledSlider : Component<float>
         _slider.onValueChanged.AddListener(f =>
         {
             _value = f;
-            _valueLabel.text = f.ToString();
+            _valueLabel.text = Truncate(f, _previewDecimalPlaces).ToString();
             InvokeOnValueChanged(f);
         });
     }
@@ -47,7 +48,7 @@ public class LabeledSlider : Component<float>
     internal override void SetValue(float value)
     {
         _value = value;
-        _valueLabel.text = value.ToString();
+        _valueLabel.text = Truncate(value, _previewDecimalPlaces).ToString();
         _slider.SetValueWithoutNotify(value);
         InvokeOnValueChanged(value);
     }
@@ -55,6 +56,12 @@ public class LabeledSlider : Component<float>
 
 
     #region Internal Functions
+    public float Truncate(float value, int digits)
+    {
+        double mult = Math.Pow(10.0, digits);
+        double result = Math.Truncate(mult * value) / mult;
+        return (float)result;
+    }
     #endregion
 
 
