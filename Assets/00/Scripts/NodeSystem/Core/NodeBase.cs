@@ -85,12 +85,27 @@ public abstract class NodeBase : MonoBehaviour
 
         return saveData;
     }
+    internal void ApplyNodeSaveData(NodeSaveData saveData)
+    {
+        if (saveData.LibraryID != GetLibraryID())
+        {
+            Debug.LogError("This is bad. The library ID must have changed or some wire must've gotten crossed.");
+            Debug.LogError("The Library ID needs to match for successful loading of the node from a save file.");
+            return;
+        }
+        _guid = saveData.Guid;
+        SetAllComponentData(saveData.ComponentDataArray);
+    }
     
     /// <summary>
     /// Manually get save data from the components included in the node scripts
     /// </summary>
     internal abstract ComponentData[] GetAllComponentData();
-    internal abstract void ApplyNodeSaveData(NodeSaveData saveData);
+
+    /// <summary>
+    /// Manually set component data loaded from save file
+    /// </summary>
+    internal abstract void SetAllComponentData(ComponentData[] componentDataArray);
     #endregion
 
 

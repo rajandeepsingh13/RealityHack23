@@ -19,6 +19,15 @@ public class CreateCopies : NodeBase
     #region Public Properties
     #endregion
 
+    #region Private Properties
+
+    private List<GameObject> spawneesPool;
+    private Coroutine spawnCoroutine;
+    private bool isFollowing = false;
+    private float spawneeSpeed = 0.1f;
+
+    #endregion
+
 
     #region Event Handlers
     #endregion
@@ -40,6 +49,8 @@ public class CreateCopies : NodeBase
         _directionDropdown.OnValueChanged += DirectionDropdownOnValueChanged;
         _randomSpeedToggle.OnValueChanged += RandomSpeedToggleOnValueChanged;
         _speedSlider.OnValueChanged += SpeedSliderOnValueChanged;
+
+        spawneesPool = new List<GameObject>();
     }
     private void Start() { }
     private void Update() { }
@@ -49,7 +60,7 @@ public class CreateCopies : NodeBase
     #region Event Handlers
     private void SpeedSliderOnValueChanged(float speed)
     {
-        
+        spawneeSpeed = speed;
     }
     private void RandomSpeedToggleOnValueChanged(bool obj)
     {
@@ -57,11 +68,37 @@ public class CreateCopies : NodeBase
     }
     private void DirectionDropdownOnValueChanged(int obj)
     {
-        
+        //If the user selects "Constant follow", set isFollowing to true
+        isFollowing = obj == 1;
+
+        if (!isFollowing)
+        {
+
+        }
     }
     private void EnableToggleOnValueChanged(bool obj)
     {
-        
+        if (obj)
+        {
+            spawnCoroutine = StartCoroutine(CreateBabes());
+        }
+        else
+        {
+            StopCoroutine(spawnCoroutine);
+        }
+    }
+    
+    private IEnumerator CreateBabes() {
+        //if in play mode
+        while (ProgrammingManager.isPlayMode) {
+
+            //Create coorutine that create new copies every x seconds.
+            GameObject enemy = Instantiate(ProgrammingManager.selectedPanda);
+            //All the children go in an array
+            spawneesPool.Add(enemy);
+
+            yield return new WaitForSeconds(Random.Range(0.5f, 3f));
+        }
     }
     #endregion
 
@@ -75,7 +112,9 @@ public class CreateCopies : NodeBase
     }
     internal override void ExecuteOnUpdate()
     {
-        
+        //Loop first checks the distance between the child in array and og parrent (static selected panda)
+        //If distance too much, destroy
+        //else position ++
     }
 
     internal override ComponentData[] GetAllComponentData()
@@ -89,12 +128,12 @@ public class CreateCopies : NodeBase
         
         return allNodeComponentData.ToArray();
     }
-    internal override void ApplyNodeSaveData(NodeSaveData saveData)
+    internal override void SetAllComponentData(ComponentData[] componentDataArray)
     {
-        _enableToggle.SetComponentData(saveData.ComponentDataArray[0]);
-        _directionDropdown.SetComponentData(saveData.ComponentDataArray[1]);
-        _randomSpeedToggle.SetComponentData(saveData.ComponentDataArray[2]);
-        _speedSlider.SetComponentData(saveData.ComponentDataArray[3]);
+        _enableToggle.SetComponentData(componentDataArray[0]);
+        _directionDropdown.SetComponentData(componentDataArray[1]);
+        _randomSpeedToggle.SetComponentData(componentDataArray[2]);
+        _speedSlider.SetComponentData(componentDataArray[3]);
     }
     #endregion
 

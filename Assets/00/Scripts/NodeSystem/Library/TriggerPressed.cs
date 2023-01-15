@@ -50,7 +50,7 @@ public class TriggerPressed : NodeBase
         List<ComponentData> allNodeComponentData = new();
         return allNodeComponentData.ToArray();
     }
-    internal override void ApplyNodeSaveData(NodeSaveData saveData)
+    internal override void SetAllComponentData(ComponentData[] componentDataArray)
     {
         
     }
