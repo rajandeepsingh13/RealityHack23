@@ -6,10 +6,16 @@ using UnityEngine;
 public class MoveController : MonoBehaviour
 {
     public ObjectManipulator objectManipulator;
-    public Movement moveObject; 
+    public Movement moveObject;
+    [HideInInspector]
     public bool RecordEnabled = false;
+    [HideInInspector]
     public bool isInReplayMode = false;
+    [HideInInspector]
     public bool isInRecordMode = false;
+    [SerializeField]
+    public bool playAfterRecord = false;
+    [HideInInspector]
     public bool isGrabbed = false;
 
     public void EnableRecord()
@@ -80,7 +86,10 @@ public class MoveController : MonoBehaviour
             Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Start Replaying! ??");
             moveObject.StopRecord();
             isInRecordMode = false;
-            moveObject.StartReplay();
+            if (playAfterRecord)
+            {
+                moveObject.StartReplay();
+            }
         }
         moveObject.StopRecord();
 

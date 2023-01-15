@@ -2766,6 +2766,7 @@ MonoBehaviour:
   RecordEnabled: 0
   isInReplayMode: 0
   isInRecordMode: 0
+  playAfterRecord: 1
   isGrabbed: 0
 --- !u!114 &1705738306
 MonoBehaviour:
