@@ -5,13 +5,19 @@ using UnityEngine;
 
 public class VoiceRecording : MonoBehaviour
 {
+    // Time to trim from beginning to compensate for audio lag
+    public static float TIME_TO_SKIP = 0.8f;
+
     string selectedDevice;
-    AudioSource audioSource;
+    
     bool micSelected = false;
     private int minFreq, maxFreq;
     private int micFrequency = 16000;
 
     string filename = "TestAudioFile";
+
+    // Current audio source to record / play
+    public static AudioSource audioSource; 
     
     void Awake()
 	{
@@ -20,9 +26,6 @@ public class VoiceRecording : MonoBehaviour
 	}
 
     private void Start() {
-        audioSource.loop = true;
-		audioSource.mute = false;
-
         if (Microphone.devices.Length > 0) {
             selectedDevice = Microphone.devices[0].ToString();
 			micSelected = true;
@@ -33,7 +36,7 @@ public class VoiceRecording : MonoBehaviour
     bool shouldPlayAudio = false;
 
     private void Update() {
-        if (shouldPlayAudio && !audioSource.isPlaying && audioSource.clip.isReadyToPlay)
+        /*if (shouldPlayAudio && !audioSource.isPlaying && audioSource.clip.isReadyToPlay)
         {
             Debug.Log("playing after load");
             audioSource.Play();
@@ -42,18 +45,12 @@ public class VoiceRecording : MonoBehaviour
         // Record
         if (OVRInput.GetDown(OVRInput.RawButton.A)) {
             Debug.Log("record");
-            if (Microphone.IsRecording(selectedDevice))
-                StopMicrophone();
-            else if (!Microphone.IsRecording(selectedDevice))
-                StartMicrophone();
+            ToggleRecordingState();
         }
         // Play
         if (OVRInput.GetDown(OVRInput.RawButton.B)) {
             Debug.Log("play");
-            if (audioSource.isPlaying)
-                audioSource.Stop();
-            else
-                audioSource.Play();
+            TogglePlayingState();
         }
         // Save
         if (OVRInput.GetDown(OVRInput.RawButton.X)) {
@@ -72,7 +69,24 @@ public class VoiceRecording : MonoBehaviour
             audioSource.clip = www.GetAudioClip();
             shouldPlayAudio = true;
             //audioSource.Play();
-        }
+        }*/
+    }
+
+    public void ToggleRecordingState() {
+        Debug.Log("recording audio");
+        if (Microphone.IsRecording(selectedDevice))
+            StopMicrophone();
+        else if (!Microphone.IsRecording(selectedDevice))
+            StartMicrophone();
+    }
+
+    public void TogglePlayingState() {
+        Debug.Log("playing audio");
+        if (audioSource.isPlaying)
+            audioSource.Stop();
+        else
+            audioSource.time = TIME_TO_SKIP;
+            audioSource.Play();
     }
 
     public void StartMicrophone () 

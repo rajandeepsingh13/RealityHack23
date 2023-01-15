@@ -154,6 +154,7 @@ public class ModelSceneManager : MonoBehaviour
         }
         centerOfPandaParent /= primitives.Length;
         var pandaParent = new GameObject("Panda");
+        pandaParent.AddComponent<Panda>();
         pandaParent.transform.position = centerOfPandaParent;
         pandaParent.tag = "Panda";
         foreach (var prim in primitives)
