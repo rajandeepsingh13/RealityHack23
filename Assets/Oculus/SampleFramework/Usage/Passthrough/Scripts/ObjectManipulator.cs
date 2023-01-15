@@ -8,7 +8,10 @@ public class ObjectManipulator : MonoBehaviour
 {
     OVRInput.Controller controller = OVRInput.Controller.RTouch;
     GameObject hoverObject = null;
-    GameObject grabObject = null;
+    public GameObject grabObject = null;
+    public Vector3 grabObjectPosition = Vector3.zero;
+    public Vector3 grabObjectRotation = Vector3.zero;
+    public Vector3 grabObjectScale = Vector3.zero;
     // all-purpose timer to use for blending after object is grabbed/released
     float grabTime = 0.0f;
     // the grabbed object's transform relative to the controller
@@ -42,9 +45,9 @@ public class ObjectManipulator : MonoBehaviour
         }
         StartCoroutine(StartDemo());
         // render these UI elements after the passthrough "hole punch" shader and the brush ring
-        if (objectNameLabel) objectNameLabel.font.material.renderQueue = 4600;
-        if (objectInstructionsLabel) objectInstructionsLabel.font.material.renderQueue = 4600;
-        if (objectInfoBG) objectInfoBG.materialForRendering.renderQueue = 4599;
+        //if (objectNameLabel) objectNameLabel.font.material.renderQueue = 4600;
+        //if (objectInstructionsLabel) objectInstructionsLabel.font.material.renderQueue = 4600;
+        //if (objectInfoBG) objectInfoBG.materialForRendering.renderQueue = 4599;
     }
 
     void Update()
@@ -91,7 +94,7 @@ public class ObjectManipulator : MonoBehaviour
         {
             grabObject.GetComponent<GrabObject>().Grab(controller);
             grabObject.GetComponent<GrabObject>().grabbedRotation = grabObject.transform.rotation;
-            AssignInstructions(grabObject.GetComponent<GrabObject>());
+            //AssignInstructions(grabObject.GetComponent<GrabObject>());
         }
         handGrabPosition = controllerPos;
         handGrabRotation = controllerRot;
@@ -186,10 +189,10 @@ public class ObjectManipulator : MonoBehaviour
                 objectInfo.rotation = Quaternion.LookRotation(toObj);
                 //objectInstructionsLabel.gameObject.SetActive(false);
                 objectInfo.localScale = Vector3.one * toObj.magnitude * 2.0f;
-                if (hoverObject.GetComponent<GrabObject>())
-                {
-                    AssignInstructions(hoverObject.GetComponent<GrabObject>());
-                }
+                //if (hoverObject.GetComponent<GrabObject>())
+                //{
+                //    AssignInstructions(hoverObject.GetComponent<GrabObject>());
+                //}
             }
             else if (grabObject)
             {
@@ -296,6 +299,10 @@ public class ObjectManipulator : MonoBehaviour
             obj.transform.Rotate(Vector3.up * -thumbstick.x);
             ClampGrabOffset(ref localGrabOffset, thumbstick.y);
         }
+
+        grabObjectPosition = obj.transform.position;
+        grabObjectRotation = obj.transform.rotation.eulerAngles;
+        grabObjectScale = obj.transform.localScale;
     }
 
     void ClampGrabOffset(ref Vector3 localOffset, float thumbY)
