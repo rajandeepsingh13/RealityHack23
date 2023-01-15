@@ -43,6 +43,16 @@ public class MoveAlongPath : NodeBase
     {
         
     }
+
+    internal override NodeSaveData GetNodeSaveData()
+    {
+        NodeSaveData saveData = new();
+        return saveData;
+    }
+    internal override void ApplyNodeSaveData(NodeSaveData saveData)
+    {
+        
+    }
     #endregion
 
 

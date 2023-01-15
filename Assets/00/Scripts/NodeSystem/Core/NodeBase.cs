@@ -42,16 +42,23 @@ public abstract class NodeBase : MonoBehaviour
     #endregion
 
 
+    #region Event Handlers
+    internal void InvokeOnStartExecuted() => OnStartExecuted?.Invoke();
+    internal void InvokeOnUpdateExecuted() => OnUpdateExecuted?.Invoke();
+    #endregion
+
+
     #region Internal Functions
     internal void SetParentCanvas(NodeCanvas nodeCanvas)
     {
         _parentNodeCanvas = nodeCanvas;
     }
+    
     internal abstract void ExecuteOnStart();
     internal abstract void ExecuteOnUpdate();
 
-    internal void InvokeOnStartExecuted() => OnStartExecuted?.Invoke();
-    internal void InvokeOnUpdateExecuted() => OnUpdateExecuted?.Invoke();
+    internal abstract NodeSaveData GetNodeSaveData();
+    internal abstract void ApplyNodeSaveData(NodeSaveData saveData);
     #endregion
 
 

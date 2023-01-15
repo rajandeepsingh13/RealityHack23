@@ -11,7 +11,6 @@ using UnityEngine;
 public class NodeCanvas : MonoBehaviour
 {
     #region Inspector Fields
-    [SerializeField] private Transform _container;
     #endregion
 
 
@@ -26,6 +25,7 @@ public class NodeCanvas : MonoBehaviour
 
 
     #region Internal Variables
+    internal string _guid = "";
     private GameObject _pandaGameObject;
     private Transform _pandaTransform;
     
@@ -40,8 +40,10 @@ public class NodeCanvas : MonoBehaviour
     #region MonoBehaviour Loop
     private void Awake()
     {
+        _guid = Guid.NewGuid().ToString();
+        
         // check if we've added any preset node functions to the canvas
-        _containedNodes = _container.GetComponentsInChildren<NodeBase>(true).ToList();
+        _containedNodes = gameObject.GetComponentsInChildren<NodeBase>(true).ToList();
         for (int i = 0; i < _containedNodes.Count; i++)
         {
             _containedNodes[i].SetParentCanvas(this);
@@ -76,9 +78,34 @@ public class NodeCanvas : MonoBehaviour
         _pandaGameObject = pandaObject;
         _pandaTransform = pandaObject.transform;
     }
+
+    internal NodeCanvasSaveData GetSaveData()
+    {
+        int nodeCount = _containedNodes.Count;
+        NodeCanvasSaveData saveData = new();
+        NodeSaveData[] nodeSaveDataArray = new NodeSaveData[nodeCount];
+        
+        for (int i = 0; i < _containedNodes.Count; i++)
+        {
+            nodeSaveDataArray[i] = _containedNodes[i].GetNodeSaveData();
+        }
+
+        saveData.NodeSaveDataArray = nodeSaveDataArray;
+        saveData.Guid = _guid;
+
+        return saveData;
+    }
+    internal void ApplySaveData(NodeCanvasSaveData saveData)
+    {
+        
+    }
     #endregion
 
 
     #region Public API
+    public void AddNode(NodeBase node)
+    {
+        _containedNodes.Add(node);
+    }
     #endregion
 }
