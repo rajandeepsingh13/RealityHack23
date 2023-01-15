@@ -8,11 +8,9 @@ using UnityEngine;
 /// <summary>
 /// 
 /// </summary>
-public class LabeledDropdown : MonoBehaviour
+public class LabeledDropdown : Component
 {
     #region Inspector Fields
-    [Header("Components")]
-    [SerializeField] private TMP_Text _label;
     [SerializeField] private TMP_Dropdown _dropdown;
     #endregion
 
