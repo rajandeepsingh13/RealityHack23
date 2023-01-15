@@ -46,10 +46,10 @@ public class MoveAlongPath : NodeBase
         
     }
 
-    internal override NodeSaveData GetNodeSaveData()
+    internal override ComponentData[] GetAllComponentData()
     {
-        NodeSaveData saveData = new();
-        return saveData;
+        List<ComponentData> allNodeComponentData = new();
+        return allNodeComponentData.ToArray();
     }
     internal override void ApplyNodeSaveData(NodeSaveData saveData)
     {

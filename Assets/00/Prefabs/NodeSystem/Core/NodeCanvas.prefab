@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3094065226139488106}
   - component: {fileID: 3094065226139488107}
   - component: {fileID: 3094065226139488116}
+  - component: {fileID: 8883379923855812668}
   - component: {fileID: 9190827750820708101}
   m_Layer: 5
   m_Name: NodeCanvas
@@ -39,7 +40,7 @@ RectTransform:
   - {fileID: 3094065227692159131}
   - {fileID: 3094065226275853489}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 20.46, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -186,6 +187,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &8883379923855812668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3094065226139488117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aaf960227867044282d921171d2d7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  pointer: {fileID: 0}
+  sortOrder: 0
 --- !u!114 &9190827750820708101
 MonoBehaviour:
   m_ObjectHideFlags: 0

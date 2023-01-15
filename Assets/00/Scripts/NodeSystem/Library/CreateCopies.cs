@@ -78,7 +78,7 @@ public class CreateCopies : NodeBase
         
     }
 
-    internal override NodeSaveData GetNodeSaveData()
+    internal override ComponentData[] GetAllComponentData()
     {
         // manually get save data from the components we've included
         List<ComponentData> allNodeComponentData = new();
@@ -87,13 +87,7 @@ public class CreateCopies : NodeBase
         allNodeComponentData.Add(_randomSpeedToggle.GetComponentData()); // 2
         allNodeComponentData.Add(_speedSlider.GetComponentData()); // 3
         
-        // standard part that should be common for every node
-        NodeSaveData saveData = new NodeSaveData();
-        saveData.Guid = _guid;
-        saveData.CanvasGuid = _parentNodeCanvas._guid;
-        saveData.ComponentDataArray = allNodeComponentData.ToArray();
-
-        return saveData;
+        return allNodeComponentData.ToArray();
     }
     internal override void ApplyNodeSaveData(NodeSaveData saveData)
     {
