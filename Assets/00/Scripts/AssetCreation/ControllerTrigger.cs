@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ControllerTrigger : MonoBehaviour
@@ -7,33 +8,25 @@ public class ControllerTrigger : MonoBehaviour
     [HideInInspector]
     public GameObject currentPrimitive;
 
-    public void OnTriggerEnter(Collider other)
-    {
-        Debug.LogWarning("TriggerEntered");
-        if (other.gameObject.tag == "Primitive")
-        {
-            Debug.LogWarning("Primitive");
-            currentPrimitive = other.gameObject;
-        }
-        else if (other.gameObject.tag == "PandaComponent")
-        {
-            Debug.LogWarning("PandaComponent");
-            currentPrimitive = other.transform.parent.gameObject;
-        }
-    }
+    Collider m_Collider;
+    Vector3 m_Size;
 
-    public void OnTriggerExit(Collider other)
+    void Update()
     {
-        Debug.LogWarning("TriggerExited");
-        if (other.gameObject.tag == "Primitive")
+        m_Collider = GetComponent<Collider>();
+        m_Size = m_Collider.bounds.size;
+        Vector3 p1 = transform.position;
+        Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, m_Size, Quaternion.identity);
+        int i = 0;
+        Collider[] orderedByProximity = hitColliders.OrderBy(c => (p1 - c.transform.position).sqrMagnitude).ToArray();
+        while (i < orderedByProximity.Length)
         {
-            Debug.LogWarning("Primitive");
-            currentPrimitive = null;
-        }
-        else if (other.gameObject.tag == "PandaComponent")
-        {
-            Debug.LogWarning("PandaComponent");
-            currentPrimitive = null;
-        }
+            if (orderedByProximity[i].gameObject.tag == "PandaComponent" || orderedByProximity[i].gameObject.tag == "Primitive")
+            {
+                currentPrimitive = orderedByProximity[i].gameObject;
+                break;
+            }
+            i++;
+        }      
     }
 }
