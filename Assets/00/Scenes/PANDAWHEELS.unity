@@ -2811,8 +2811,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.15, y: 0.15, z: 0.14}
-  m_Center: {x: 0, y: -0.01, z: -0.02}
+  m_Size: {x: 0.05, y: 0.05, z: 0.05}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &841614951
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4458,6 +4458,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891a5db22dd82b84195539b740608c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabObject: {fileID: 0}
+  grabObjectPosition: {x: 0, y: 0, z: 0}
+  grabObjectRotation: {x: 0, y: 0, z: 0}
+  grabObjectScale: {x: 0, y: 0, z: 0}
   laser: {fileID: 1285069864}
   objectInfo: {fileID: 0}
   objectNameLabel: {fileID: 0}

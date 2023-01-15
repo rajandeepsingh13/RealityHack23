@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using UnityEngine.Rendering;
 
 public enum ReplayType { Once, Loop, PingPong }
 
@@ -25,7 +26,7 @@ public class Movement : MonoBehaviour
     public Quaternion startRotation;
     public Vector3 startScale;
     public GameObject controller;
-    public Dictionary<float, MovementRecord> movementTempMap = new Dictionary<float, MovementRecord>();
+    public SerializedDictionary<float, MovementRecord> movementTempMap = new SerializedDictionary<float, MovementRecord>();
     public ObjectManipulator objectManipulator;
     public ReplayType type = ReplayType.Loop;
     public CurrentDirection currentDirection = CurrentDirection.Forward;
