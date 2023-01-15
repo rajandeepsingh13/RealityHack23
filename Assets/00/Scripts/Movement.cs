@@ -11,8 +11,8 @@ public enum CurrentDirection { Forward, Backwards }
 public class MovementRecord
 {
     public Vector3 movePosition;
-    public Vector3 moveRotation;
-    //public Vector3 moveScale;
+    public Quaternion moveRotation;
+    public Vector3 moveScale;
 } 
 
 public class Movement : MonoBehaviour
@@ -22,6 +22,8 @@ public class Movement : MonoBehaviour
     public float startReplayTime;
     public float startRecordTime;
     public Vector3 startPosition;
+    public Quaternion startRotation;
+    public Vector3 startScale;
     public GameObject controller;
     public Dictionary<float, MovementRecord> movementTempMap = new Dictionary<float, MovementRecord>();
     public ObjectManipulator objectManipulator;
@@ -40,6 +42,8 @@ public class Movement : MonoBehaviour
         movementTempMap.Clear();
         isInRecordMode = true;
         startPosition = new Vector3(controller.transform.position.x, controller.transform.position.y, controller.transform.position.z);
+        startRotation = controller.transform.localRotation;
+        startScale = controller.transform.localScale;
     }
 
     public void StartReplay()
@@ -51,10 +55,14 @@ public class Movement : MonoBehaviour
         {
             float[] array = movementTempMap.Keys.ToArray();
             controller.transform.position = movementTempMap[array[array.Length - 1]].movePosition;
+            controller.transform.localRotation = movementTempMap[array[array.Length - 1]].moveRotation;
+            controller.transform.localScale = movementTempMap[array[array.Length - 1]].moveScale;
         }
         else
         {
             controller.transform.position = startPosition;
+            controller.transform.localRotation = startRotation;
+            controller.transform.localScale = startScale;
         }
         
     }
@@ -64,6 +72,7 @@ public class Movement : MonoBehaviour
         isInReplayMode = false;
     }
 
+ 
     void Update()
     {
         if (isInReplayMode)
@@ -100,9 +109,10 @@ public class Movement : MonoBehaviour
                 Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Move rec is NOT null");
                 controller.transform.position = moveRec.movePosition;
                 Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Position: " + moveRec.movePosition);
-                controller.transform.rotation = Quaternion.EulerAngles(moveRec.moveRotation.x, moveRec.moveRotation.y, moveRec.moveRotation.z);
-                //transform.localScale = moveRec.moveScale;
-            } else
+                controller.transform.localRotation = moveRec.moveRotation;
+                controller.transform.localScale = moveRec.moveScale;
+            }
+            else
             {
                 Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Move rec is null");
 
@@ -153,9 +163,9 @@ public class Movement : MonoBehaviour
         {
             MovementRecord mr = new MovementRecord
             {
-                movePosition = objectManipulator.grabObjectPosition,
-                moveRotation = objectManipulator.grabObjectRotation
-                //moveScale = objectManipulator.grabObject.transform.lossyScale
+                movePosition = controller.transform.position,
+                moveRotation = controller.transform.localRotation,
+                moveScale = controller.transform.localScale
             };
             movementTempMap.Add(Time.time - startRecordTime, mr);
             Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "movementTempMap count: " + movementTempMap.Count());

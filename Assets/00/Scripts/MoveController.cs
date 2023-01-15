@@ -22,6 +22,13 @@ public class MoveController : MonoBehaviour
         RecordEnabled = false;
     }
 
+    void AlignWithController(OVRInput.Controller cntrlr)
+    {
+        //controller.position = OVRInput.GetLocalControllerPosition(controller);
+        objectManipulator.grabObject.transform.rotation = OVRInput.GetLocalControllerRotation(cntrlr);
+
+    }
+
     private void Update()
     {
         if (objectManipulator.grabObject != null)
@@ -30,6 +37,11 @@ public class MoveController : MonoBehaviour
         } else
         {
             isGrabbed = false;
+        }
+
+        if (isGrabbed && !isInReplayMode)
+        {
+            AlignWithController(OVRInput.Controller.RTouch);
         }
 
         // Is Recording Enabled
