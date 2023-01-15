@@ -1,18 +1,17 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 /// <summary>
 /// 
 /// </summary>
-public class Move : NodeBase
+public class CreateCopies : NodeBase
 {
     #region Inspector Fields
-    [SerializeField] private LabeledDropdown _axisDropdown;
+    [SerializeField] private LabeledToggle _enableToggle;
+    [SerializeField] private LabeledDropdown _directionDropdown;
+    [SerializeField] private LabeledToggle _randomSpeedToggle;
     [SerializeField] private LabeledSlider _speedSlider;
     #endregion
 
@@ -21,23 +20,15 @@ public class Move : NodeBase
     #endregion
 
 
-    #region Events
+    #region Event Handlers
     #endregion
 
 
     #region Internal Variables
-    private Axis _axis = 0;
-    private float _speed = 0.1f;
     #endregion
 
 
     #region Data Constructs
-    internal enum Axis
-    {
-        x = 0,
-        y = 1,
-        z = 2
-    }
     #endregion
 
 
@@ -45,57 +36,56 @@ public class Move : NodeBase
     private new void Awake()
     {
         base.Awake();
-        _axisDropdown.OnValueChanged += AxisDropdownOnValueChanged;
+        _enableToggle.OnValueChanged += EnableToggleOnValueChanged;
+        _directionDropdown.OnValueChanged += DirectionDropdownOnValueChanged;
+        _randomSpeedToggle.OnValueChanged += RandomSpeedToggleOnValueChanged;
         _speedSlider.OnValueChanged += SpeedSliderOnValueChanged;
     }
+    private void Start() { }
+    private void Update() { }
     #endregion
 
 
     #region Event Handlers
     private void SpeedSliderOnValueChanged(float speed)
     {
-        _speed = speed;
+        
     }
-    private void AxisDropdownOnValueChanged(int axisValue)
+    private void RandomSpeedToggleOnValueChanged(bool obj)
     {
-        _axis = (Axis)axisValue;
+        
+    }
+    private void DirectionDropdownOnValueChanged(int obj)
+    {
+        
+    }
+    private void EnableToggleOnValueChanged(bool obj)
+    {
+        
     }
     #endregion
 
 
     #region Internal Functions
-    internal override int GetLibraryID() => 7845;
-
+    internal override int GetLibraryID() => 6794;
+    
     internal override void ExecuteOnStart()
     {
         
     }
     internal override void ExecuteOnUpdate()
     {
-        Vector3 currentPos = _parentNodeCanvas.PandaTransform.position;
         
-        switch (_axis)
-        {
-            case Axis.x:
-                currentPos.x += _speed;
-                break;
-            case Axis.y:
-                currentPos.y += _speed;
-                break;
-            case Axis.z:
-                currentPos.z += _speed;
-                break;
-        }
-
-        _parentNodeCanvas.PandaTransform.position = currentPos;
     }
 
     internal override NodeSaveData GetNodeSaveData()
     {
         // manually get save data from the components we've included
         List<ComponentData> allNodeComponentData = new();
-        allNodeComponentData.Add(_axisDropdown.GetComponentData()); // 0
-        allNodeComponentData.Add(_speedSlider.GetComponentData()); // 1
+        allNodeComponentData.Add(_enableToggle.GetComponentData()); // 0
+        allNodeComponentData.Add(_directionDropdown.GetComponentData()); // 1
+        allNodeComponentData.Add(_randomSpeedToggle.GetComponentData()); // 2
+        allNodeComponentData.Add(_speedSlider.GetComponentData()); // 3
         
         // standard part that should be common for every node
         NodeSaveData saveData = new NodeSaveData();
@@ -107,12 +97,16 @@ public class Move : NodeBase
     }
     internal override void ApplyNodeSaveData(NodeSaveData saveData)
     {
-        _axisDropdown.SetComponentData(saveData.ComponentDataArray[0]);
-        _speedSlider.SetComponentData(saveData.ComponentDataArray[1]);
+        _enableToggle.SetComponentData(saveData.ComponentDataArray[0]);
+        _directionDropdown.SetComponentData(saveData.ComponentDataArray[1]);
+        _randomSpeedToggle.SetComponentData(saveData.ComponentDataArray[2]);
+        _speedSlider.SetComponentData(saveData.ComponentDataArray[3]);
     }
     #endregion
 
 
     #region Public API
     #endregion
+
+
 }

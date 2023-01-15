@@ -49,12 +49,29 @@ public abstract class NodeBase : MonoBehaviour
 
 
     #region Internal Functions
+    /// <summary>
+    /// This is a hardcoded library placement identifier unique for every node
+    /// to ensure proper type loading when loading in save data and reconstructing
+    /// a node canvas. if this is changed, previous save data wont get loading in properly.
+    /// </summary>
+    internal abstract int GetLibraryID();
+    
+    /// <summary>
+    /// The node canvas(only) will call and set this for every node it contains.
+    /// </summary>
     internal void SetParentCanvas(NodeCanvas nodeCanvas)
     {
         _parentNodeCanvas = nodeCanvas;
     }
     
+    /// <summary>
+    /// Gets Called once when a scene starts playing
+    /// </summary>
     internal abstract void ExecuteOnStart();
+    
+    /// <summary>
+    /// Gets called every frame when a scene plays
+    /// </summary>
     internal abstract void ExecuteOnUpdate();
 
     internal abstract NodeSaveData GetNodeSaveData();

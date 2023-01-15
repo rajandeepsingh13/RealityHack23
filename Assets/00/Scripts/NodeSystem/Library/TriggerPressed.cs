@@ -35,6 +35,8 @@ public class TriggerPressed : NodeBase
 
 
     #region Internal Functions
+    internal override int GetLibraryID() => 1290;
+    
     internal override void ExecuteOnStart()
     {
         

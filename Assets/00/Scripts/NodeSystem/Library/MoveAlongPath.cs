@@ -35,6 +35,8 @@ public class MoveAlongPath : NodeBase
 
 
     #region Internal Functions
+    internal override int GetLibraryID() => 5362;
+    
     internal override void ExecuteOnStart()
     {
         

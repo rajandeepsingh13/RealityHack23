@@ -35,6 +35,8 @@ public class Spawn : NodeBase
 
 
     #region Internal Functions
+    internal override int GetLibraryID() => 2930;
+    
     internal override void ExecuteOnStart()
     {
         
