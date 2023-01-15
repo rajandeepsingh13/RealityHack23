@@ -29,13 +29,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/00/Scenes/PassthroughPrefabs.unity
     guid: 06569ac0d1c1b554080d19fcb317e047
-  - enabled: 0
+  - enabled: 1
     path: Assets/00/Scenes/PANDAWHEELS.unity
     guid: 09016c1714e3fc743beabd3a56c717da
   - enabled: 0
-    path: Assets/00/Scenes/Recording.unity
-    guid: 0d4bc64f230e846c397bb6818a5d9f49
-  - enabled: 1
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
     path: Assets/00/Scenes/PassthroughPrefabsRecording.unity
     guid: 469de7a5062764ab2b3266e64e0cfa23
   m_configObjects:
