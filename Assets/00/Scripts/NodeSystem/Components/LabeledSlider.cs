@@ -9,11 +9,9 @@ using UnityEngine.UI;
 /// <summary>
 /// 
 /// </summary>
-public class LabeledSlider : MonoBehaviour
+public class LabeledSlider : Component
 {
     #region Inspector Fields
-    [Header("Components")]
-    [SerializeField] private TMP_Text _label;
     [SerializeField] private Slider _slider;
     [SerializeField] private TMP_Text _value;
     #endregion

@@ -2,9 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drawing : MonoBehaviour
+public class Panda : MonoBehaviour
 {
-    public void AddStroke(GameObject go) {
+    enum PandaType {
+        npc,
+        controller
+    }
+
+    // Meshes making up this Panda are stored as children of the GameObject this script is on
+
+    float creationTimestamp;
+
+    //Guid guid = System.Guid.NewGuid();
+
+    // Panda's associated behaviors
+    public List<NodeBase> nodes = new List<NodeBase>();
+
+    private void Start()
+    {
+        foreach (NodeBase node in nodes) {
+            node.ExecuteOnStart();
+        }
+    }
+
+    private void Update()
+    {
+        foreach (NodeBase node in nodes) {
+            node.ExecuteOnUpdate();
+        }
+    }
+
+    public void AddMesh(GameObject go) {
         go.transform.parent = gameObject.transform;
     }
 
