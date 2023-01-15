@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -22,6 +24,7 @@ public class NodeMenu : MonoBehaviour
 
 
     #region Internal Variables
+    private NodeCanvas _currentActiveCanvas;
     #endregion
 
 
@@ -37,7 +40,17 @@ public class NodeMenu : MonoBehaviour
 
     private void OnNodeLibraryInitialized()
     {
-        
+        var nodeTypes = NodeLibrary.Instance.NodeTypes;
+        for (int i = 0; i < nodeTypes.Count; i++)
+        {
+            Type nodeType = nodeTypes.ElementAt(i).Value;
+            NodeMenuItem newItem = Instantiate(_nodeMenuItemPrefab, transform);
+            newItem.OnMenuItemSelected += () =>
+            {
+                // instantiate new node on the canvas
+                // close the node menu
+            };
+        }
     }
 
     private void Update() { }

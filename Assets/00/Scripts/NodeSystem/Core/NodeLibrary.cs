@@ -36,7 +36,8 @@ public class NodeLibrary : MonoBehaviour
             return _instance;
         }
     }
-    
+
+    public Dictionary<string, Type> NodeTypes => _nodeTypes;
     #endregion
 
 

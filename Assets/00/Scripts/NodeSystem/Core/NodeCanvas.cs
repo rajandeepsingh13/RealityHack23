@@ -84,9 +84,11 @@ public class NodeCanvas : MonoBehaviour
 
         saveData.NodeSaveDataArray = nodeSaveDataArray;
         saveData.Guid = _guid;
+        saveData.PandaGuid = _pandaObject._guid;
 
         return saveData;
     }
+    
     internal void ApplySaveData(NodeCanvasSaveData saveData)
     {
         _guid = saveData.Guid;
