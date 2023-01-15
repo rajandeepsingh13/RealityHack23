@@ -434,7 +434,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brush: {fileID: 101721470}
-  material: {fileID: 2100000, guid: c53926491f48b6c4883f8fee9edab574, type: 2}
 --- !u!4 &101721473
 Transform:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     float prevGripR;
     float prevGripL;
 
-    public Material material;
+    public static Material material;
 
     void Update() {
         // Right trigger - draw
@@ -25,9 +25,9 @@ public class GameManager : MonoBehaviour
         }*/
 
         // Left trigger - merge mesh
-        if (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > 0.1f) {
+        /*if (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > 0.1f) {
             newPanda = true;
-        }
+        }*/
 
         // Right grip - save 
         float gripR = OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger);

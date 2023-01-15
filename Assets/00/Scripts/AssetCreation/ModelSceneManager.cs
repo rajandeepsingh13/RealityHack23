@@ -112,7 +112,9 @@ public class ModelSceneManager : MonoBehaviour
         foreach (var image in imagesToUpdate)
         {
             image.color = allMaterials[color].color;
+            Brush.material = allMaterials[color];
         }
+
     }
 
     public void OnCreateShpere()

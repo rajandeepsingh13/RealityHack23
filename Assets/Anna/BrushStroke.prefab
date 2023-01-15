@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4243151155524798}
   - component: {fileID: 33199534086123454}
   - component: {fileID: 23323503900639040}
-  - component: {fileID: 114757252374765478}
+  - component: {fileID: 4479531480399939905}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &114757252374765478
+--- !u!114 &4479531480399939905
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1180682106015612}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95a97ac0f8566e846b7089b6fc649052, type: 3}
+  m_Script: {fileID: 11500000, guid: 3015f736ce238b848810ba13477012fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _brushStrokeWidth: 0.05
@@ -107,7 +107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4430818574254032}
-  - component: {fileID: 114499251600465828}
+  - component: {fileID: 2857242037429895300}
   m_Layer: 0
   m_Name: BrushStroke
   m_TagString: Untagged
@@ -131,7 +131,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114499251600465828
+--- !u!114 &2857242037429895300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1196413553089462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07275cc05e970014287f58539763a801, type: 3}
+  m_Script: {fileID: 11500000, guid: 20be2b6ee03141d40953127ed48f98e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mesh: {fileID: 114757252374765478}
+  _mesh: {fileID: 4479531480399939905}
