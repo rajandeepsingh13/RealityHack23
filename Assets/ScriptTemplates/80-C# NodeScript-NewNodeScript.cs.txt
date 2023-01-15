@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Nodes.Library
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    [Node("#NAME#")]
+    public class #SCRIPTNAME# : NodeBase
+    {
+        #region Component Fields
+        #endregion
+        
+        
+        #region Internal Variables
+        #endregion
+        
+        
+        #region MonoBehaviour Loop
+        private new void Awake()
+        {
+            base.Awake();
+        }
+        
+        // Start is called before the first frame update
+        internal override void ExecuteOnStart()
+        {
+            
+        }
+        
+        // Update is called once per frame
+        internal override void ExecuteOnUpdate()
+        {
+            
+        }
+        #endregion
+        
+        
+        #region Inherited NodeBase Behaviours
+        // Set this to a new unique 4 or more digit number, and never change it
+        internal override int GetLibraryID() => 0000;
+        
+        internal override ComponentData[] GetAllComponentData()
+        {
+            List<ComponentData> allNodeComponentData = new();
+
+            return allNodeComponentData.ToArray();
+        }
+        internal override void SetAllComponentData(ComponentData[] componentDataArray)
+        {
+            
+        }
+        #endregion
+    }
+}

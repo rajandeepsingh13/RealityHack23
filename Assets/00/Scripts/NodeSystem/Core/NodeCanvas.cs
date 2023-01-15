@@ -28,6 +28,8 @@ public class NodeCanvas : MonoBehaviour
     internal string _guid = "";
     private GameObject _pandaGameObject;
     private Transform _pandaTransform;
+
+    private bool _play = false;
     
     private List<NodeBase> _containedNodes = new();
     #endregion
@@ -49,18 +51,10 @@ public class NodeCanvas : MonoBehaviour
             _containedNodes[i].SetParentCanvas(this);
         }
     }
-    private void Start()
-    {
-        // call all the contained nodes start functions
-        for (int i = 0; i < _containedNodes.Count; i++)
-        {
-            var node = _containedNodes[i];
-            node.ExecuteOnStart();
-            node.InvokeOnStartExecuted();
-        }
-    }
     private void Update()
     {
+        if (!_play) return;
+        
         // call all the contained nodes update functions
         for (int i = 0; i < _containedNodes.Count; i++)
         {
@@ -106,6 +100,23 @@ public class NodeCanvas : MonoBehaviour
     public void AddNode(NodeBase node)
     {
         _containedNodes.Add(node);
+    }
+
+    public void Play()
+    {
+        // call all the contained nodes start functions
+        for (int i = 0; i < _containedNodes.Count; i++)
+        {
+            var node = _containedNodes[i];
+            node.ExecuteOnStart();
+            node.InvokeOnStartExecuted();
+        }
+        
+        _play = true;
+    }
+    public void Pause()
+    {
+        _play = false;
     }
     #endregion
 }
