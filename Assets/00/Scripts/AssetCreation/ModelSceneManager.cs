@@ -163,6 +163,8 @@ public class ModelSceneManager : MonoBehaviour
         {
             prim.tag = "PandaComponent";
             prim.transform.SetParent(pandaParent.transform);
+            Rigidbody rb = prim.AddComponent<Rigidbody>();
+            rb.isKinematic = true;
         }
 
         //Disable create

@@ -13,8 +13,9 @@ using UnityEngine;
 public class OnCollision : NodeBase
 {
     #region Inspector Fields
-    [SerializeField] public GameObject targetObject;
-    [SerializeField] private LabeledToggle _destroyToggle;
+    /*[SerializeField] private LabeledDropdown _colliderTypeDropdown;*/
+    [SerializeField] private LabeledToggle _enableCollisionsToggle;
+    [SerializeField] private LabeledToggle _isDestroyerToggle;
     [SerializeField] private LabeledSlider _changeScoreSlider;
     [SerializeField] private LabeledToggle _playAudioToggle;
     [SerializeField] private LabeledButton _recordAudioButton;
@@ -26,8 +27,50 @@ public class OnCollision : NodeBase
     #endregion
 
     #region Event Handlers
-    void DestroyToggleOnValueChanged(bool val) {
-        ProgrammingManager.selectedPanda.GetComponent<Panda>().destroyObjectOnCollision = val;
+    void ColliderTypeDropdownOnValueChanged(int val) {
+        /*Panda p = ProgrammingManager.selectedPanda.GetComponent<Panda>();
+        switch (val) {
+        case 0:
+            p.collisionType = Panda.CollisionType.none;
+            foreach(Collider c in p.GetComponentsInChildren<Collider>()) {
+                GetComponent<Collider>().isTrigger = false;
+            }
+            break;
+        case 1:
+            p.collisionType = Panda.CollisionType.destroyer;
+            foreach(Collider c in p.GetComponentsInChildren<Collider>()) {
+                GetComponent<Collider>().isTrigger = true;
+            }
+            break;
+        case 2:
+            p.collisionType = Panda.CollisionType.destroyable;
+            foreach(Collider c in p.GetComponentsInChildren<Collider>()) {
+                GetComponent<Collider>().isTrigger = false;
+            }
+            break;
+        default:
+            Debug.Log("what the actual fuck");
+            break;
+        }*/
+       
+    }
+    void EnableCollisionsToggleOnValueChanged(bool val) {
+        ProgrammingManager.selectedPanda.GetComponent<Panda>().enableCollisions = false;
+    }
+    void IsDestroyerToggleOnValueChanged(bool val) {
+        Panda p = ProgrammingManager.selectedPanda.GetComponent<Panda>();
+        if (val) {
+            p.collisionType = Panda.CollisionType.destroyer;
+            foreach(Collider c in p.GetComponentsInChildren<Collider>()) {
+                GetComponent<Collider>().isTrigger = true;
+            }
+        } else {
+            p.collisionType = Panda.CollisionType.destroyable;
+            foreach(Collider c in p.GetComponentsInChildren<Collider>()) {
+                GetComponent<Collider>().isTrigger = false;
+            }
+        }
+        //ProgrammingManager.selectedPanda.GetComponent<Panda>().enableCollisions = false;
     }
     void ChangeScoreSliderOnValueChanged(float val) {
         ProgrammingManager.selectedPanda.GetComponent<Panda>().scoreChangeOnCollision = (int) val;
@@ -46,7 +89,10 @@ public class OnCollision : NodeBase
 
 
     #region Internal Variables
-    
+    enum CollisionType {
+        destroyer = 0,
+        destroyable = 1
+    }
     #endregion
 
 
@@ -56,7 +102,9 @@ public class OnCollision : NodeBase
 
     #region MonoBehaviour Loop
     private void Awake() {
-        _destroyToggle.OnValueChanged += DestroyToggleOnValueChanged;
+        //_colliderTypeDropdown.OnValueChanged += ColliderTypeDropdownOnValueChanged;
+        _enableCollisionsToggle.OnValueChanged += EnableCollisionsToggleOnValueChanged;
+        _isDestroyerToggle.OnValueChanged += IsDestroyerToggleOnValueChanged;
         _changeScoreSlider.OnValueChanged += ChangeScoreSliderOnValueChanged;
         _playAudioToggle.OnValueChanged += PlayAudioToggleOnValueChanged;
         _recordAudioButton.OnValueChanged += RecordAudioButtonOnClick;

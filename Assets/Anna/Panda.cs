@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Panda : MonoBehaviour
 {
-    enum PandaType {
-        npc,
-        controller
+    public bool enableCollisions = false;
+    public enum CollisionType { // Only applies if collisions ARE enabled
+        destroyer,
+        destroyable
     }
+
+    public CollisionType collisionType = CollisionType.destroyer;
 
     // Meshes making up this Panda are stored as children of the GameObject this script is on
 
@@ -74,13 +77,19 @@ public class Panda : MonoBehaviour
     }
 
     public void OnCollision(Collider other) {
-        if (destroyObjectOnCollision) {
-            Destroy(other.gameObject);
+        if (!enableCollisions) {
+            return;
         }
-        if (playAudioOnCollision) {
+        Debug.Log("panda - collision");
+        Panda p = other.gameObject.transform.parent.gameObject.GetComponent<Panda>();
+        if ((collisionType == CollisionType.destroyer && p.collisionType == CollisionType.destroyable) ||
+         (collisionType == CollisionType.destroyable && p.collisionType == CollisionType.destroyer)) {
+            if (collisionType == CollisionType.destroyer) {
+                Destroy(other.gameObject);
+            }
+            GameObject.FindObjectsOfType<Score>()[0].ChangeScoreBy(scoreChangeOnCollision);
             PlayAudioSource(collisionAudioSource);
         }
-        GameObject.FindObjectsOfType<Score>()[0].ChangeScoreBy(scoreChangeOnCollision);
     }
 
     void PlayAudioSource(AudioSource aus) {
