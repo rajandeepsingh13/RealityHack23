@@ -151,29 +151,29 @@ namespace Nodes.Library
                 {
                     var dist = Vector3.Distance(anchorPos, spawnee.transform.position);
 
-                    //if (dist >= 0.01f)
-                    //{
+                    if (dist >= 0.01f)
+                    {
                         spawnee.transform.position = Vector3.MoveTowards(spawnee.transform.position, anchorPos, spawneeSpeed * Time.deltaTime);
-                    //}
-                    //else
-                    //{
-                    //    spawneesPool.Remove(spawnee);
-                    //    GameObject.Destroy(spawnee);
-                    //}
+                    }
+                    else
+                    {
+                        spawneesPool.Remove(spawnee);
+                        GameObject.Destroy(spawnee);
+                    }
                 }
                 else
                 {
                     var dist = Vector3.Distance(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch), spawnee.transform.position);
 
-                    //if (dist >= 0.01f)
-                    //{
+                    if (dist >= 0.01f)
+                    {
                         spawnee.transform.position = Vector3.MoveTowards(spawnee.transform.position, OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch), spawneeSpeed * Time.deltaTime);
-                    //}
-                    //else
-                    //{
-                    //    spawneesPool.Remove(spawnee);
-                    //    GameObject.Destroy(spawnee);
-                    //}
+                    }
+                    else
+                    {
+                        spawneesPool.Remove(spawnee);
+                        GameObject.Destroy(spawnee);
+                    }
                 }
             }
         }
