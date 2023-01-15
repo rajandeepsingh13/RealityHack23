@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class VoiceRecording : MonoBehaviour
@@ -9,6 +10,8 @@ public class VoiceRecording : MonoBehaviour
     bool micSelected = false;
     private int minFreq, maxFreq;
     private int micFrequency = 16000;
+
+    string filename = "TestAudioFile";
     
     void Awake()
 	{
@@ -27,18 +30,48 @@ public class VoiceRecording : MonoBehaviour
         } 
     }
 
+    bool shouldPlayAudio = false;
+
     private void Update() {
-        if (OVRInput.GetDown(OVRInput.Button.One)) {
+        if (shouldPlayAudio && !audioSource.isPlaying && audioSource.clip.isReadyToPlay)
+        {
+            Debug.Log("playing after load");
+            audioSource.Play();
+            shouldPlayAudio = false;
+        }
+        // Record
+        if (OVRInput.GetDown(OVRInput.RawButton.A)) {
+            Debug.Log("record");
             if (Microphone.IsRecording(selectedDevice))
                 StopMicrophone();
             else if (!Microphone.IsRecording(selectedDevice))
                 StartMicrophone();
         }
-        if (OVRInput.GetDown(OVRInput.Button.Two)) {
+        // Play
+        if (OVRInput.GetDown(OVRInput.RawButton.B)) {
+            Debug.Log("play");
             if (audioSource.isPlaying)
                 audioSource.Stop();
             else
                 audioSource.Play();
+        }
+        // Save
+        if (OVRInput.GetDown(OVRInput.RawButton.X)) {
+            Debug.Log("running savwav");
+            if (File.Exists(Application.persistentDataPath + "/" + filename + ".wav")) {
+                Debug.Log("deleting existing save file");
+                File.Delete(Application.persistentDataPath + "/" + filename + ".wav");
+            }
+            SavWav.Save(filename, audioSource.clip);
+        }
+        // Load
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick)) {
+            //byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + "/" + filename + ".wav");
+            //audioSource.SetData()
+            WWW www = new WWW("file://" + Application.persistentDataPath + "/" + filename + ".wav");
+            audioSource.clip = www.GetAudioClip();
+            shouldPlayAudio = true;
+            //audioSource.Play();
         }
     }
 
@@ -46,11 +79,11 @@ public class VoiceRecording : MonoBehaviour
 	{
 		if (micSelected == false) return;
 
-		audioSource.clip = Microphone.Start(selectedDevice, true, 1, micFrequency);
+		audioSource.clip = Microphone.Start(selectedDevice, true, 10, micFrequency);
 
-		while (!(Microphone.GetPosition(selectedDevice) > 0)){}
+		while (!(Microphone.GetPosition(selectedDevice) > 0)) {}
 
-		audioSource.Play();
+		//audioSource.Play();
     }
 
     public void StopMicrophone () 
@@ -65,7 +98,7 @@ public class VoiceRecording : MonoBehaviour
 
     public void GetMicCapabilities () 
 	{
-		if(micSelected == false) return;
+		if (micSelected == false) return;
 
 		Microphone.GetDeviceCaps(selectedDevice, out minFreq, out maxFreq);
 
