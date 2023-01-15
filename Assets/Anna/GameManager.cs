@@ -15,14 +15,14 @@ public class GameManager : MonoBehaviour
 
     void Update() {
         // Right trigger - draw
-        if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.1f && newPanda) {
+        /*if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.1f && newPanda) {
             Debug.Log("begin new drawing");
             GameObject go = new GameObject();
             go.AddComponent<Panda>();
             brush.currentPanda = go.GetComponent<Panda>();
             go.tag = "Panda";
             newPanda = false;
-        }
+        }*/
 
         // Left trigger - merge mesh
         if (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > 0.1f) {

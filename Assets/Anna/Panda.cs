@@ -18,8 +18,20 @@ public class Panda : MonoBehaviour
     // Panda's associated behaviors
     public List<NodeBase> nodes = new List<NodeBase>();
 
+    public AudioSource spawnAudioSource;
+    public AudioSource collisionAudioSource;
+
+    public bool destroyObjectOnCollision = false;
+    public bool playAudioOnCollision = false;
+    public int scoreChangeOnCollision = 0;
+
     private void Start()
     {
+        spawnAudioSource = gameObject.AddComponent<AudioSource>();
+        spawnAudioSource.loop = false;
+        collisionAudioSource = gameObject.AddComponent<AudioSource>();
+        collisionAudioSource.loop = false;
+
         foreach (NodeBase node in nodes) {
             node.ExecuteOnStart();
         }
@@ -29,6 +41,12 @@ public class Panda : MonoBehaviour
     {
         foreach (NodeBase node in nodes) {
             node.ExecuteOnUpdate();
+        }
+
+        // Test
+        if (OVRInput.GetDown(OVRInput.RawButton.A)) {
+            Debug.Log("testing collision audio");
+            OnCollision(null);
         }
     }
 
@@ -53,5 +71,20 @@ public class Panda : MonoBehaviour
         Mesh mesh = new Mesh();
         mesh.CombineMeshes(combine);
         return mesh;
+    }
+
+    public void OnCollision(Collider other) {
+        if (destroyObjectOnCollision) {
+            Destroy(other.gameObject);
+        }
+        if (playAudioOnCollision) {
+            PlayAudioSource(collisionAudioSource);
+        }
+        GameObject.FindObjectsOfType<Score>()[0].ChangeScoreBy(scoreChangeOnCollision);
+    }
+
+    void PlayAudioSource(AudioSource aus) {
+        aus.time = VoiceRecording.TIME_TO_SKIP;
+        aus.Play();
     }
 }

@@ -13,7 +13,7 @@ public class Brush : MonoBehaviour {
     // Used to keep track of the current brush tip position and the actively drawing brush stroke
     private BrushStroke _activeBrushStroke;
 
-    public Panda currentPanda;
+    //public Panda currentPanda;
 
     private bool enabled = false;
 
@@ -39,7 +39,7 @@ public class Brush : MonoBehaviour {
         brushTip.transform.position = position;
         brushTip.transform.rotation = rotation;
 
-        if (currentPanda == null || !enabled) { return; }
+        if (!enabled) { return; }
 
         // If the trigger is pressed and we haven't created a new brush stroke to draw, create one!
         if (triggerPressed && _activeBrushStroke == null) {
@@ -48,7 +48,7 @@ public class Brush : MonoBehaviour {
             // Instantiate a copy of the Brush Stroke prefab.
             GameObject brushStrokeGameObject = Instantiate(_brushStrokePrefab);
             brushStrokeGameObject.tag = "Primitive";
-            currentPanda.AddMesh(brushStrokeGameObject);
+            //currentPanda.AddMesh(brushStrokeGameObject);
 
             // Grab the BrushStroke component from it
             _activeBrushStroke = brushStrokeGameObject.GetComponent<BrushStroke>();
