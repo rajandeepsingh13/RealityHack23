@@ -30,7 +30,6 @@ public class MoveController : MonoBehaviour
 
     void AlignWithController(OVRInput.Controller cntrlr)
     {
-        //controller.position = OVRInput.GetLocalControllerPosition(controller);
         objectManipulator.grabObject.transform.rotation = OVRInput.GetLocalControllerRotation(cntrlr);
 
     }
@@ -52,17 +51,17 @@ public class MoveController : MonoBehaviour
 
         // Is Recording Enabled
         if (RecordEnabled) {
-            Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Recording is Enabled");
+            //Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Recording is Enabled");
             // Is Object Being Grabbed
             if (isGrabbed)
             {
-                Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Object is grabbed");
+                //Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Object is grabbed");
 
                 // Is Object Ready To Record
                 bool triggerPressed = OVRInput.Get(OVRInput.RawButton.A);
                 if (triggerPressed && !isInRecordMode)
                 {
-                    Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Start Recording! ??");
+                    //Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Start Recording! ??");
                     moveObject.StartRecord();
                     isInRecordMode = true;
                     return;
@@ -83,7 +82,7 @@ public class MoveController : MonoBehaviour
 
         if (isInRecordMode)
         {
-            Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Start Replaying! ??");
+            //Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Start Replaying! ??");
             moveObject.StopRecord();
             isInRecordMode = false;
             if (playAfterRecord)
