@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -41,8 +42,9 @@ public class Move : NodeBase
 
 
     #region MonoBehaviour Loop
-    private void Start()
+    private new void Awake()
     {
+        base.Awake();
         _axisDropdown.OnValueChanged += AxisDropdownOnValueChanged;
         _speedSlider.OnValueChanged += SpeedSliderOnValueChanged;
     }
@@ -84,6 +86,27 @@ public class Move : NodeBase
         }
 
         _parentNodeCanvas.PandaTransform.position = currentPos;
+    }
+
+    internal override NodeSaveData GetNodeSaveData()
+    {
+        // manually get save data from the components we've included
+        List<ComponentData> allNodeComponentData = new();
+        allNodeComponentData.Add(_axisDropdown.GetComponentData()); // 0
+        allNodeComponentData.Add(_speedSlider.GetComponentData()); // 1
+        
+        // standard part that should be common for every node
+        NodeSaveData saveData = new NodeSaveData();
+        saveData.Guid = _guid;
+        saveData.CanvasGuid = _parentNodeCanvas._guid;
+        saveData.ComponentDataArray = allNodeComponentData.ToArray();
+
+        return saveData;
+    }
+    internal override void ApplyNodeSaveData(NodeSaveData saveData)
+    {
+        _axisDropdown.SetComponentData(saveData.ComponentDataArray[0]);
+        _speedSlider.SetComponentData(saveData.ComponentDataArray[1]);
     }
     #endregion
 
