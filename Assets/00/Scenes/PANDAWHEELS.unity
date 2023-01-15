@@ -3447,6 +3447,7 @@ MonoBehaviour:
   _directionDropdown: {fileID: 1589284727}
   _speedSlider: {fileID: 370436608}
   _randomTimeToogle: {fileID: 1467361564}
+  centerEye: {fileID: 1075910008}
 --- !u!1001 &1013718171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4019,6 +4020,12 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!4 &1075910008 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400002, guid: 126d619cf4daa52469682f85c1378b4a,
+    type: 3}
+  m_PrefabInstance: {fileID: 246759779}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1106271129 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1734835989771325452, guid: 0d7e472489f06aa4fbfe0abd0dc4e03e,

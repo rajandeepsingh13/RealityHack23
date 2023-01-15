@@ -16,6 +16,8 @@ namespace Nodes.Library
         [SerializeField] private LabeledDropdown _directionDropdown;
         [SerializeField] private LabeledSlider _speedSlider;
         [SerializeField] private LabeledToggle _randomTimeToogle;
+
+        [SerializeField] private Transform centerEye;
         #endregion
 
 
@@ -167,11 +169,11 @@ namespace Nodes.Library
                 }
                 else
                 {
-                    var dist = Vector3.Distance(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch), spawnee.transform.position);
+                    var dist = Vector3.Distance(centerEye.position, spawnee.transform.position);
 
                     if (dist >= 0.01f)
                     {
-                        spawnee.transform.position = Vector3.MoveTowards(spawnee.transform.position, OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch), spawneeSpeed * Time.deltaTime);
+                        spawnee.transform.position = Vector3.MoveTowards(spawnee.transform.position, centerEye.position, spawneeSpeed * Time.deltaTime);
                     }
                     else
                     {
