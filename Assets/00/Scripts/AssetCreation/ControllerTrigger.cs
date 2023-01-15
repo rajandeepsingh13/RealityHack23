@@ -19,11 +19,17 @@ public class ControllerTrigger : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, m_Size, Quaternion.identity);
         int i = 0;
         Collider[] orderedByProximity = hitColliders.OrderBy(c => (p1 - c.transform.position).sqrMagnitude).ToArray();
+        currentPrimitive = null;
         while (i < orderedByProximity.Length)
         {
-            if (orderedByProximity[i].gameObject.tag == "PandaComponent" || orderedByProximity[i].gameObject.tag == "Primitive")
+            if (orderedByProximity[i].gameObject.tag == "Primitive")
             {
                 currentPrimitive = orderedByProximity[i].gameObject;
+                break;
+            }
+            else if (orderedByProximity[i].gameObject.tag == "PandaComponent")
+            {
+                currentPrimitive = orderedByProximity[i].gameObject.transform.parent.gameObject;
                 break;
             }
             i++;

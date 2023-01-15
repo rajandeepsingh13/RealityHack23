@@ -58,6 +58,14 @@ public class ModelSceneManager : MonoBehaviour
                 return;
             }
 
+            if (OVRInput.GetDown(OVRInput.Button.Two, controller))
+            {
+                isManipulating = false;
+                GameObject.Destroy(manipulatingObject);
+                manipulatingObject = null;
+                return;
+            }
+
             if (OVRInput.GetDown(OVRInput.Button.One))
             {
                 currentAxis = (currentAxis + 1) % 3;
