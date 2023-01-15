@@ -8,6 +8,7 @@ TagManager:
   - ControllerTag
   - Primitive
   - Panda
+  - PandaComponent
   layers:
   - Default
   - TransparentFX

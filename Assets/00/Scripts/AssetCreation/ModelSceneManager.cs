@@ -23,6 +23,7 @@ public class ModelSceneManager : MonoBehaviour
     public GameObject capsule;
 
     private bool isManupilating = false;
+    private bool isRegrab = false;
     private GameObject manipulatingObject;
 
     // Start is called before the first frame update
@@ -45,6 +46,14 @@ public class ModelSceneManager : MonoBehaviour
             {
                 isManupilating = false;
                 manipulatingObject = null;
+                return;
+            }
+
+            if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, controller) && isRegrab)
+            {
+                isManupilating = false;
+                manipulatingObject = null;
+                isRegrab = false;
                 return;
             }
 
@@ -87,9 +96,10 @@ public class ModelSceneManager : MonoBehaviour
         }
         else
         {
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller) && controllerTrigger.currentPrimitive)
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller) && controllerTrigger.currentPrimitive)
             {
                 isManupilating = true;
+                isRegrab = true;
                 manipulatingObject = controllerTrigger.currentPrimitive;
             }
         }
@@ -129,7 +139,7 @@ public class ModelSceneManager : MonoBehaviour
 
     public void Merge()
     {
-        var premitives = GameObject.FindGameObjectsWithTag("Premitive");
+        var premitives = GameObject.FindGameObjectsWithTag("Primitive");
         if (premitives.Length == 0)
             return;
         var centerOfPandaParent = new Vector3(0f, 0f, 0f);
