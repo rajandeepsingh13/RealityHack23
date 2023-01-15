@@ -9,11 +9,11 @@ using UnityEngine.UI;
 /// <summary>
 /// 
 /// </summary>
-public class LabeledSlider : Component
+public class LabeledSlider : Component<float>
 {
     #region Inspector Fields
     [SerializeField] private Slider _slider;
-    [SerializeField] private TMP_Text _value;
+    [SerializeField] private TMP_Text _valueLabel;
     #endregion
 
 
@@ -22,7 +22,6 @@ public class LabeledSlider : Component
 
 
     #region Event Handlers
-    public event Action<float> OnValueChanged;
     #endregion
 
 
@@ -39,9 +38,18 @@ public class LabeledSlider : Component
     {
         _slider.onValueChanged.AddListener(f =>
         {
-            OnValueChanged.Invoke(f);
-            _value.text = f.ToString();
+            _value = f;
+            _valueLabel.text = f.ToString();
+            InvokeOnValueChanged(f);
         });
+    }
+
+    internal override void SetValue(float value)
+    {
+        _value = value;
+        _valueLabel.text = value.ToString();
+        _slider.SetValueWithoutNotify(value);
+        InvokeOnValueChanged(value);
     }
     #endregion
 

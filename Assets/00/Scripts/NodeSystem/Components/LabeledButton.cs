@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 
 /// </summary>
-public class LabeledButton : Component
+public class LabeledButton : Component<int>
 {
     #region Inspector Fields
     [SerializeField] private Button _button;
@@ -22,7 +22,6 @@ public class LabeledButton : Component
 
 
     #region Event Handlers
-    public event Action OnButtonClicked;
     #endregion
 
 
@@ -37,7 +36,7 @@ public class LabeledButton : Component
     #region MonoBehaviour Loop
     private void Awake()
     {
-        _button.onClick.AddListener(() => OnButtonClicked?.Invoke());
+        _button.onClick.AddListener(() => InvokeOnValueChanged(0));
     }
     #endregion
 
@@ -47,6 +46,10 @@ public class LabeledButton : Component
     {
         _buttonLabel.text = buttonLabel;
         _button.onClick.AddListener(() => onClick?.Invoke());
+    }
+    internal override void SetValue(int value)
+    {
+        // don't really need to set anything here because this is just a button and has no value.
     }
     #endregion
 

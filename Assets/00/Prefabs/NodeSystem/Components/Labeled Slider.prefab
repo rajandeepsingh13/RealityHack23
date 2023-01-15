@@ -238,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _label: {fileID: 1158883636327578656}
   _slider: {fileID: 7879606449657536326}
-  _value: {fileID: 5823091057779291295}
+  _valueLabel: {fileID: 5823091057779291295}
 --- !u!1 &7433343832475683559
 GameObject:
   m_ObjectHideFlags: 0
