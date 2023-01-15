@@ -1,18 +1,17 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 
 /// <summary>
 /// 
 /// </summary>
-public class LabeledToggle : Component
+public class Component : MonoBehaviour
 {
     #region Inspector Fields
-    [SerializeField] private Toggle _toggle;
+    [SerializeField] internal TMP_Text _label;
     #endregion
 
 
@@ -21,7 +20,6 @@ public class LabeledToggle : Component
 
 
     #region Event Handlers
-    public event Action<bool> OnToggled;
     #endregion
 
 
@@ -34,14 +32,15 @@ public class LabeledToggle : Component
 
 
     #region MonoBehaviour Loop
-    private void Awake()
-    {
-        _toggle.onValueChanged.AddListener(OnToggled.Invoke);
-    }
+    private void Awake() { }
     #endregion
 
 
     #region Internal Functions
+    internal void SetLabel(string label)
+    {
+        _label.text = label;
+    }
     #endregion
 
 
