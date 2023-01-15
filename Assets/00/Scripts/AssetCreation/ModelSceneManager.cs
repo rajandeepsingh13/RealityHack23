@@ -125,4 +125,28 @@ public class ModelSceneManager : MonoBehaviour
         manipulatingObject.GetComponent<Renderer>().material = allMaterials[currentColor];
         isManupilating = true;
     }
+
+
+    public void Merge()
+    {
+        var premitives = GameObject.FindGameObjectsWithTag("Premitive");
+        if (premitives.Length == 0)
+            return;
+        var centerOfPandaParent = new Vector3(0f, 0f, 0f);
+        foreach (var prem in premitives)
+        {
+            centerOfPandaParent += prem.transform.position;
+            prem.tag = "PandaComponent";
+        }
+        centerOfPandaParent /= premitives.Length;
+        var pandaParent = new GameObject("Panda");
+        pandaParent.transform.position = centerOfPandaParent;
+        pandaParent.tag = "Panda";
+        foreach (var prem in premitives)
+        {
+            prem.tag = "PandaComponent";
+            prem.transform.SetParent(pandaParent.transform);
+        }
+
+    }
 }
