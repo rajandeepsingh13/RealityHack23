@@ -74,7 +74,7 @@ namespace Nodes.Library
 
         internal override void ExecuteOnUpdate()
         {
-            Vector3 currentPos = _parentNodeCanvas.PandaTransform.position;
+            Vector3 currentPos = _parentNodeCanvas.PandaObject.Transform.position;
 
             switch (_axis)
             {
@@ -89,7 +89,7 @@ namespace Nodes.Library
                     break;
             }
 
-            _parentNodeCanvas.PandaTransform.position = currentPos;
+            _parentNodeCanvas.PandaObject.Transform.position = currentPos;
         }
 
         internal override ComponentData[] GetAllComponentData()
