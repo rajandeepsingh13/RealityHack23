@@ -64,6 +64,8 @@ public class Move : NodeBase
 
 
     #region Internal Functions
+    internal override int GetLibraryID() => 7845;
+
     internal override void ExecuteOnStart()
     {
         
@@ -88,20 +90,13 @@ public class Move : NodeBase
         _parentNodeCanvas.PandaTransform.position = currentPos;
     }
 
-    internal override NodeSaveData GetNodeSaveData()
+    internal override ComponentData[] GetAllComponentData()
     {
-        // manually get save data from the components we've included
         List<ComponentData> allNodeComponentData = new();
         allNodeComponentData.Add(_axisDropdown.GetComponentData()); // 0
         allNodeComponentData.Add(_speedSlider.GetComponentData()); // 1
         
-        // standard part that should be common for every node
-        NodeSaveData saveData = new NodeSaveData();
-        saveData.Guid = _guid;
-        saveData.CanvasGuid = _parentNodeCanvas._guid;
-        saveData.ComponentDataArray = allNodeComponentData.ToArray();
-
-        return saveData;
+        return allNodeComponentData.ToArray();
     }
     internal override void ApplyNodeSaveData(NodeSaveData saveData)
     {
