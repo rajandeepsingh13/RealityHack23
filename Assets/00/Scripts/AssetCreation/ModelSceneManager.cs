@@ -158,5 +158,9 @@ public class ModelSceneManager : MonoBehaviour
             prem.transform.SetParent(pandaParent.transform);
         }
 
+        //Disable create
+        //enable the progtramiing canvas
+        //Static variable selectedPanda. = pandaParent
+
     }
 }
