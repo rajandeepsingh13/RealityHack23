@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Brush brush;
-    bool newDrawing = true;
+    bool newPanda = true;
 
     float prevGripR;
     float prevGripL;
@@ -15,18 +15,18 @@ public class GameManager : MonoBehaviour
 
     void Update() {
         // Right trigger - draw
-        if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.1f && newDrawing) {
+        if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.1f && newPanda) {
             Debug.Log("begin new drawing");
             GameObject go = new GameObject();
-            go.AddComponent<Drawing>();
-            brush.currentDrawing = go.GetComponent<Drawing>();
-            go.tag = "Drawing";
-            newDrawing = false;
+            go.AddComponent<Panda>();
+            brush.currentPanda = go.GetComponent<Panda>();
+            go.tag = "Panda";
+            newPanda = false;
         }
 
         // Left trigger - merge mesh
         if (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > 0.1f) {
-            newDrawing = true;
+            newPanda = true;
         }
 
         // Right grip - save 
@@ -47,16 +47,16 @@ public class GameManager : MonoBehaviour
     void SaveGame() {
         List<MeshAndTransform> meshesAndTransforms = new List<MeshAndTransform>();
 
-        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Drawing")) {
-            Drawing drawing = go.GetComponent<Drawing>();
-            Mesh combinedMesh = drawing.CombineMeshes();
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Panda")) {
+            Panda panda = go.GetComponent<Panda>();
+            Mesh combinedMesh = panda.CombineMeshes();
             Debug.Log("mesh num verts " + combinedMesh.vertexCount);
             SerializableMeshInfo meshInfo = new SerializableMeshInfo(combinedMesh);
             MeshAndTransform meshAndTransform = new MeshAndTransform();
             meshAndTransform.mesh = meshInfo;
-            meshAndTransform.position = new float[] { drawing.transform.position[0], drawing.transform.position[1], drawing.transform.position[2] };
-            meshAndTransform.eulerAngles = new float[] { drawing.transform.eulerAngles[0], drawing.transform.eulerAngles[1], drawing.transform.eulerAngles[2] };
-            Debug.Log("mesh pos " + drawing.transform.position[0] + " " + drawing.transform.position[1] + " " + drawing.transform.position[2]);
+            meshAndTransform.position = new float[] { panda.transform.position[0], panda.transform.position[1], panda.transform.position[2] };
+            meshAndTransform.eulerAngles = new float[] { panda.transform.eulerAngles[0], panda.transform.eulerAngles[1], panda.transform.eulerAngles[2] };
+            Debug.Log("mesh pos " + panda.transform.position[0] + " " + panda.transform.position[1] + " " + panda.transform.position[2]);
             Debug.Log("mesh euler " + meshAndTransform.eulerAngles);
             meshesAndTransforms.Add(meshAndTransform);
         }

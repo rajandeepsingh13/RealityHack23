@@ -13,7 +13,7 @@ public class Panda : MonoBehaviour
 
     float creationTimestamp;
 
-    Guid guid = Guid.NewGuid();
+    //Guid guid = System.Guid.NewGuid();
 
     // Panda's associated behaviors
     public List<NodeBase> nodes = new List<NodeBase>();
@@ -27,8 +27,31 @@ public class Panda : MonoBehaviour
 
     private void Update()
     {
-        foreach (node in nodes) {
+        foreach (NodeBase node in nodes) {
             node.ExecuteOnUpdate();
         }
+    }
+
+    public void AddMesh(GameObject go) {
+        go.transform.parent = gameObject.transform;
+    }
+
+    public Mesh CombineMeshes()
+    {
+        MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
+        CombineInstance[] combine = new CombineInstance[meshFilters.Length];
+
+        int i = 0;
+        while (i < meshFilters.Length)
+        {
+            combine[i].mesh = meshFilters[i].sharedMesh;
+            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+            meshFilters[i].gameObject.SetActive(false);
+
+            i++;
+        }
+        Mesh mesh = new Mesh();
+        mesh.CombineMeshes(combine);
+        return mesh;
     }
 }
