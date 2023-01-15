@@ -15,7 +15,8 @@ namespace Nodes.Library
         [SerializeField] private LabeledToggle _enableToggle;
         [SerializeField] private LabeledDropdown _directionDropdown;
         [SerializeField] private LabeledSlider _speedSlider;
-        [SerializeField] private LabeledToggle _randomTimeToogle;
+        [SerializeField] private LabeledSlider _minTimeSlider;
+        [SerializeField] private LabeledSlider _maxTimeSlider;
 
         [SerializeField] private Transform centerEye;
         #endregion
@@ -31,7 +32,8 @@ namespace Nodes.Library
         private bool isFollowing = false;
         private float spawneeSpeed = 0.1f;
         private Vector3 anchorPos;
-        private bool randomTimeValue = true;
+        private float minTimeInterval = 1f;
+        private float maxTimeInterval = 10f;
         private bool anchorPlaced = false;
 
         #endregion
@@ -56,12 +58,12 @@ namespace Nodes.Library
             _enableToggle.OnValueChanged += EnableToggleOnValueChanged;
             _directionDropdown.OnValueChanged += DirectionDropdownOnValueChanged;
             _speedSlider.OnValueChanged += SpeedSliderOnValueChanged;
-            _randomTimeToogle.OnValueChanged += _randomTimeToogle_OnValueChanged;
+            _minTimeSlider.OnValueChanged += _minTimeSlider_OnValueChanged;
+            _maxTimeSlider.OnValueChanged += _maxTimeSlider_OnValueChanged;
+
 
             spawneesPool = new List<GameObject>();
         }
-
-        
 
         private void Start() { }
         private void Update() { }
@@ -70,10 +72,16 @@ namespace Nodes.Library
 
         #region Event Handlers
 
-        private void _randomTimeToogle_OnValueChanged(bool obj)
+        private void _maxTimeSlider_OnValueChanged(float obj)
         {
-            randomTimeValue = obj;
+            maxTimeInterval = obj;
         }
+
+        private void _minTimeSlider_OnValueChanged(float obj)
+        {
+            minTimeInterval = obj;
+        }
+
 
         private void SpeedSliderOnValueChanged(float speed)
         {
@@ -108,7 +116,7 @@ namespace Nodes.Library
                     Debug.LogWarning("instnactaed");
                     //Create coorutine that create new copies every x seconds.
                     GameObject enemy = Instantiate(ProgrammingManager.selectedPanda);
-                    enemy.transform.position = ProgrammingManager.selectedPanda.transform.position + new Vector3(0.1f, 0.1f, 0.1f);
+                    enemy.transform.position = ProgrammingManager.selectedPanda.transform.position;
 
                     //All the children go in an array
                     spawneesPool.Add(enemy);
@@ -117,14 +125,17 @@ namespace Nodes.Library
 
                 }
 
-                if (randomTimeValue)
+                if (minTimeInterval >= maxTimeInterval)
                 {
-                    yield return new WaitForSeconds(Random.Range(0.5f, 3f));
+                    yield return new WaitForSeconds(maxTimeInterval);
                 }
                 else
                 {
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(Random.Range(minTimeInterval, maxTimeInterval));
                 }
+                    
+                    
+
             }
         }
         #endregion

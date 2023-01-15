@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,6 +55,14 @@ public class ModelSceneManager : MonoBehaviour
                 isManipulating = false;
                 manipulatingObject = null;
                 isRegrab = false;
+                return;
+            }
+
+            if (OVRInput.GetDown(OVRInput.Button.Two, controller))
+            {
+                isManipulating = false;
+                GameObject.Destroy(manipulatingObject);
+                manipulatingObject = null;
                 return;
             }
 
@@ -155,8 +164,9 @@ public class ModelSceneManager : MonoBehaviour
             prim.tag = "PandaComponent";
         }
         centerOfPandaParent /= primitives.Length;
-        var pandaParent = new GameObject("Panda");
-        pandaParent.AddComponent<Panda>();
+        GameObject pandaParent = new GameObject("Panda");
+        Panda newPanda = pandaParent.AddComponent<Panda>();
+        newPanda.SetGuid(Guid.NewGuid().ToString());
         pandaParent.transform.position = centerOfPandaParent;
         pandaParent.tag = "Panda";
         foreach (var prim in primitives)

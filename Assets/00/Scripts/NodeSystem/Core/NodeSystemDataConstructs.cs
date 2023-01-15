@@ -30,6 +30,7 @@ using UnityEngine;
 [Serializable] public struct NodeCanvasSaveData
 {
     public string Guid;
+    public string PandaGuid;
     public NodeSaveData[] NodeSaveDataArray;
 }
 

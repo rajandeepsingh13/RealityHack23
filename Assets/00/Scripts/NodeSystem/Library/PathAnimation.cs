@@ -19,18 +19,35 @@ namespace Nodes.Library
         [SerializeField] private MoveController _movementController;
         [SerializeField] private Movement _movement;
         #endregion
-        
-        
+
+
         #region Internal Variables
+        private LoopingType _loopingType = 0;
         #endregion
-        
-        
+
+        #region Data Constructs
+        internal enum LoopingType
+        {
+            Once = 0,
+            Loop = 1,
+            PingPong = 2
+        }
+        #endregion
+
         #region MonoBehaviour Loop
         private new void Awake()
         {
             base.Awake();
             _enableButton.OnValueChanged += OnEnableClicked;
             _disableButton.OnValueChanged += OnDisableClicked;
+            _modeDropdown.OnValueChanged += OnDropDownSelected;
+        }
+
+        private void OnDropDownSelected(int loopType)
+        {
+            Debug.Log("Setting Movement Type: " + loopType);
+            _loopingType = (LoopingType)loopType;
+            _movement.type = (ReplayType)loopType;
         }
 
         private void OnEnableClicked(int _)
@@ -39,9 +56,11 @@ namespace Nodes.Library
             _enableButton.gameObject.SetActive(false);
             _disableButton.gameObject.SetActive(true);
         }
+
         private void OnDisableClicked(int _)
         {
             _movementController.DisableRecord();
+            _movement.StopReplay();
             _disableButton.gameObject.SetActive(false);
             _enableButton.gameObject.SetActive(true);
         }
@@ -73,7 +92,6 @@ namespace Nodes.Library
             animData.Dataype = _movement.movementTempMap.GetType();
             animData.Data = _movement.movementTempMap;
             allNodeComponentData.Add(animData); // 1
-
             return allNodeComponentData.ToArray();
         }
         internal override void SetAllComponentData(ComponentData[] componentDataArray)

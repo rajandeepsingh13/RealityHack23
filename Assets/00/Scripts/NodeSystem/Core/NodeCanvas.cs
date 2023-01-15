@@ -15,8 +15,8 @@ public class NodeCanvas : MonoBehaviour
 
 
     #region Public Properties
-    public GameObject PandaGameObject => _pandaGameObject;
-    public Transform PandaTransform => _pandaTransform;
+    public bool IsPlay => _play;
+    public Panda PandaObject => _pandaObject;
     #endregion
 
 
@@ -26,8 +26,7 @@ public class NodeCanvas : MonoBehaviour
 
     #region Internal Variables
     internal string _guid = "";
-    private GameObject _pandaGameObject;
-    private Transform _pandaTransform;
+    private Panda _pandaObject;
 
     private bool _play = true;
     
@@ -67,10 +66,9 @@ public class NodeCanvas : MonoBehaviour
 
 
     #region Internal Functions
-    internal void SetPandaObject(GameObject pandaObject)
+    internal void SetPandaObject(Panda pandaObject)
     {
-        _pandaGameObject = pandaObject;
-        _pandaTransform = pandaObject.transform;
+        _pandaObject = pandaObject;
     }
 
     internal NodeCanvasSaveData GetSaveData()
@@ -91,12 +89,17 @@ public class NodeCanvas : MonoBehaviour
     }
     internal void ApplySaveData(NodeCanvasSaveData saveData)
     {
-        
+        _guid = saveData.Guid;
+        //TODO: Finish loading here
     }
     #endregion
 
 
     #region Public API
+    public void SetGuid(string guid)
+    {
+        _guid = guid;
+    }
     public void AddNode(NodeBase node)
     {
         _containedNodes.Add(node);

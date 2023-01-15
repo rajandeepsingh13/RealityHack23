@@ -5,7 +5,7 @@ using System.Linq;
 using System;
 using UnityEngine.Rendering;
 
-public enum ReplayType { Once, Loop, PingPong }
+public enum ReplayType { Once = 0, Loop = 1, PingPong = 2 }
 
 public enum CurrentDirection { Forward, Backwards }
 
@@ -18,17 +18,29 @@ public class MovementRecord
 
 public class Movement : MonoBehaviour
 {
+    [HideInInspector]
     public bool isInReplayMode = false;
+    [HideInInspector]
     public bool isInRecordMode = false;
+    [HideInInspector]
     public float startReplayTime;
+    [HideInInspector]
     public float startRecordTime;
+    [HideInInspector]
     public Vector3 startPosition;
+    [HideInInspector]
     public Quaternion startRotation;
+    [HideInInspector]
     public Vector3 startScale;
-    public GameObject controller;
+    [SerializeField]
+    public GameObject moveableObject;
+    [HideInInspector]
     public SerializedDictionary<float, MovementRecord> movementTempMap = new SerializedDictionary<float, MovementRecord>();
+    [SerializeField]
     public ObjectManipulator objectManipulator;
-    public ReplayType type = ReplayType.Loop;
+    [HideInInspector]
+    public ReplayType type = ReplayType.Once;
+    [HideInInspector]
     public CurrentDirection currentDirection = CurrentDirection.Forward;
 
     public void StopRecord()
@@ -42,9 +54,9 @@ public class Movement : MonoBehaviour
         startRecordTime = Time.time;
         movementTempMap.Clear();
         isInRecordMode = true;
-        startPosition = new Vector3(controller.transform.position.x, controller.transform.position.y, controller.transform.position.z);
-        startRotation = controller.transform.localRotation;
-        startScale = controller.transform.localScale;
+        startPosition = new Vector3(moveableObject.transform.position.x, moveableObject.transform.position.y, moveableObject.transform.position.z);
+        startRotation = moveableObject.transform.localRotation;
+        startScale = moveableObject.transform.localScale;
     }
 
     public void StartReplay()
@@ -55,15 +67,15 @@ public class Movement : MonoBehaviour
         if (type == ReplayType.PingPong && currentDirection == CurrentDirection.Backwards)
         {
             float[] array = movementTempMap.Keys.ToArray();
-            controller.transform.position = movementTempMap[array[array.Length - 1]].movePosition;
-            controller.transform.localRotation = movementTempMap[array[array.Length - 1]].moveRotation;
-            controller.transform.localScale = movementTempMap[array[array.Length - 1]].moveScale;
+            moveableObject.transform.position = movementTempMap[array[array.Length - 1]].movePosition;
+            moveableObject.transform.localRotation = movementTempMap[array[array.Length - 1]].moveRotation;
+            moveableObject.transform.localScale = movementTempMap[array[array.Length - 1]].moveScale;
         }
         else
         {
-            controller.transform.position = startPosition;
-            controller.transform.localRotation = startRotation;
-            controller.transform.localScale = startScale;
+            moveableObject.transform.position = startPosition;
+            moveableObject.transform.localRotation = startRotation;
+            moveableObject.transform.localScale = startScale;
         }
         
     }
@@ -88,7 +100,7 @@ public class Movement : MonoBehaviour
             { 
                 if (startReplayTime != null)
                 {
-                    Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Checking Start Replay time");
+                    //Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Checking Start Replay time");
                     index = Array.IndexOf(array, array.OrderBy(a => Math.Abs((Time.time - startReplayTime) - a)).First());
                 }
 
@@ -96,26 +108,26 @@ public class Movement : MonoBehaviour
             {
                 if (startReplayTime != null)
                 {
-                    Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Checking Start Replay time");
+                    //Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Checking Start Replay time");
                     index = Array.IndexOf(array, array.OrderBy(a => Math.Abs((array[array.Length-1] - (Time.time - startReplayTime)) - a)).First());
                 }
             }
 
-            Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Checking index: " + index);
+            //Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Checking index: " + index);
             moveRec = movementTempMap[array[index]];
 
             
             if (moveRec != null)
             {
-                Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Move rec is NOT null");
-                controller.transform.position = moveRec.movePosition;
-                Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Position: " + moveRec.movePosition);
-                controller.transform.localRotation = moveRec.moveRotation;
-                controller.transform.localScale = moveRec.moveScale;
+                //Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Move rec is NOT null");
+                moveableObject.transform.position = moveRec.movePosition;
+                //Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Position: " + moveRec.movePosition);
+                moveableObject.transform.localRotation = moveRec.moveRotation;
+                moveableObject.transform.localScale = moveRec.moveScale;
             }
             else
             {
-                Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Move rec is null");
+                //Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "Move rec is null");
 
             }
 
@@ -164,12 +176,12 @@ public class Movement : MonoBehaviour
         {
             MovementRecord mr = new MovementRecord
             {
-                movePosition = controller.transform.position,
-                moveRotation = controller.transform.localRotation,
-                moveScale = controller.transform.localScale
+                movePosition = moveableObject.transform.position,
+                moveRotation = moveableObject.transform.localRotation,
+                moveScale = moveableObject.transform.localScale
             };
             movementTempMap.Add(Time.time - startRecordTime, mr);
-            Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "movementTempMap count: " + movementTempMap.Count());
+            //Debug.LogFormat(LogType.Log, LogOption.NoStacktrace, null, "movementTempMap count: " + movementTempMap.Count());
         }
     }
 
