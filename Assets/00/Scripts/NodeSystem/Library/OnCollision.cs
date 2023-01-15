@@ -36,7 +36,7 @@ public class OnCollision : NodeBase
         ProgrammingManager.selectedPanda.GetComponent<Panda>().playAudioOnCollision = val;
     }
     void RecordAudioButtonOnClick(int _) {
-        VoiceRecording.audioSource = ProgrammingManager.selectedPanda.GetComponent<Panda>().collisionAudioSource;
+        VoiceRecording.audioSource = ProgrammingManager.selectedPanda.GetComponent<Panda>()._collisionAudioSource;
         _voiceRecording.ToggleRecordingState();
     }
     void PlayAudioButtonOnClick(int _) {

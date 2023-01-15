@@ -1,59 +1,98 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+
+/// <summary>
+/// 
+/// </summary>
 public class Panda : MonoBehaviour
 {
-    enum PandaType {
+    #region Inspector Fields
+    [SerializeField] internal AudioSource _spawnAudioSource;
+    [SerializeField] internal AudioSource _collisionAudioSource;
+
+    [SerializeField] internal bool destroyObjectOnCollision = false;
+    [SerializeField] internal bool playAudioOnCollision = false;
+    [SerializeField] internal int scoreChangeOnCollision = 0;
+    #endregion
+
+
+    #region Public Properties
+    public GameObject GameObject => _gameObject;
+    public Transform Transform => _transform;
+    #endregion
+
+
+    #region Events
+    #endregion
+
+
+    #region Internal Variables
+    private GameObject _gameObject;
+    private Transform _transform;
+    
+    internal NodeCanvas _localNodeCanvas;
+    internal float _creationTimestamp;
+    internal string _guid;
+    #endregion
+
+
+    #region Data Constructs
+    public enum PandaType
+    {
         npc,
         controller
     }
+    #endregion
 
-    // Meshes making up this Panda are stored as children of the GameObject this script is on
 
-    float creationTimestamp;
-
-    //Guid guid = System.Guid.NewGuid();
-
-    // Panda's associated behaviors
-    public List<NodeBase> nodes = new List<NodeBase>();
-
-    public AudioSource spawnAudioSource;
-    public AudioSource collisionAudioSource;
-
-    public bool destroyObjectOnCollision = false;
-    public bool playAudioOnCollision = false;
-    public int scoreChangeOnCollision = 0;
-
-    private void Start()
+    #region MonoBehaviour Loop
+    private void Awake()
     {
-        spawnAudioSource = gameObject.AddComponent<AudioSource>();
-        spawnAudioSource.loop = false;
-        collisionAudioSource = gameObject.AddComponent<AudioSource>();
-        collisionAudioSource.loop = false;
-
-        foreach (NodeBase node in nodes) {
-            node.ExecuteOnStart();
-        }
+        _gameObject = gameObject;
+        _transform = transform;
+        _localNodeCanvas = NodeLibrary.Instance.GetFreshCanvas();
+        
+        _spawnAudioSource = gameObject.AddComponent<AudioSource>();
+        _spawnAudioSource.loop = false;
+        _collisionAudioSource = gameObject.AddComponent<AudioSource>();
+        _collisionAudioSource.loop = false;
     }
 
     private void Update()
     {
-        foreach (NodeBase node in nodes) {
-            node.ExecuteOnUpdate();
-        }
-
         // Test
-        if (OVRInput.GetDown(OVRInput.RawButton.A)) {
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
+        {
             Debug.Log("testing collision audio");
             OnCollision(null);
         }
     }
+    #endregion
 
-    public void AddMesh(GameObject go) {
+
+    #region Internal Behaviours
+    internal void SetGuid(string guid)
+    {
+        _guid = guid;
+    }
+    private void PlayAudioSource(AudioSource aus)
+    {
+        aus.time = VoiceRecording.TIME_TO_SKIP;
+        aus.Play();
+    }
+    #endregion
+
+
+    #region Public API
+    // Meshes making up this Panda are stored as children of the GameObject this script is on
+    public void AddMesh(GameObject go)
+    {
         go.transform.parent = gameObject.transform;
     }
-
     public Mesh CombineMeshes()
     {
         MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
@@ -68,23 +107,24 @@ public class Panda : MonoBehaviour
 
             i++;
         }
+
         Mesh mesh = new Mesh();
         mesh.CombineMeshes(combine);
         return mesh;
     }
-
-    public void OnCollision(Collider other) {
-        if (destroyObjectOnCollision) {
+    public void OnCollision(Collider other)
+    {
+        if (destroyObjectOnCollision)
+        {
             Destroy(other.gameObject);
         }
-        if (playAudioOnCollision) {
-            PlayAudioSource(collisionAudioSource);
+
+        if (playAudioOnCollision)
+        {
+            PlayAudioSource(_collisionAudioSource);
         }
+
         GameObject.FindObjectsOfType<Score>()[0].ChangeScoreBy(scoreChangeOnCollision);
     }
-
-    void PlayAudioSource(AudioSource aus) {
-        aus.time = VoiceRecording.TIME_TO_SKIP;
-        aus.Play();
-    }
+    #endregion
 }
