@@ -8,7 +8,7 @@ using UnityEngine;
 /// <summary>
 /// 
 /// </summary>
-public class LabeledDropdown : Component
+public class LabeledDropdown : Component<int>
 {
     #region Inspector Fields
     [SerializeField] private TMP_Dropdown _dropdown;
@@ -20,7 +20,6 @@ public class LabeledDropdown : Component
 
 
     #region Event Handlers
-    public event Action<int> OnValueChanged;
     #endregion
 
 
@@ -35,12 +34,17 @@ public class LabeledDropdown : Component
     #region MonoBehaviour Loop
     private void Awake()
     {
-        _dropdown.onValueChanged.AddListener(OnValueChanged.Invoke);
+        _dropdown.onValueChanged.AddListener(InvokeOnValueChanged);
     }
     #endregion
 
 
     #region Internal Functions
+    internal override void SetValue(int value)
+    {
+        _dropdown.SetValueWithoutNotify(value);
+        InvokeOnValueChanged(value);
+    }
     #endregion
 
 

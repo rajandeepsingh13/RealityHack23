@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 
 /// </summary>
-public class GameObjectReference : Component
+public class GameObjectReference : Component<GameObject>
 {
     #region Inspector Fields
     [SerializeField] private Button _button;
@@ -25,7 +25,6 @@ public class GameObjectReference : Component
 
 
     #region Internal Variables
-    private GameObject _localReference;
     #endregion
 
 
@@ -45,13 +44,14 @@ public class GameObjectReference : Component
     private void LaunchSelector()
     {
         // the logic for selecting an object should happen here
-        //GameObject theSelectedObject;
-        //SetSelected(theSelectedObject); //set the selected gameObject
+        // GameObject theSelectedObject;
+        // SetValue(theSelectedObject); //set the selected gameObject
     }
-    private void SetSelected(GameObject selected)
+    internal override void SetValue(GameObject selected)
     {
-        _localReference = selected;
+        _value = selected;
         _referenceLabel.text = selected.name;
+        InvokeOnValueChanged(selected);
     }
     #endregion
 

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 
 /// </summary>
-public class LabeledToggle : Component
+public class LabeledToggle : Component<bool>
 {
     #region Inspector Fields
     [SerializeField] private Toggle _toggle;
@@ -21,7 +21,6 @@ public class LabeledToggle : Component
 
 
     #region Event Handlers
-    public event Action<bool> OnToggled;
     #endregion
 
 
@@ -36,12 +35,18 @@ public class LabeledToggle : Component
     #region MonoBehaviour Loop
     private void Awake()
     {
-        _toggle.onValueChanged.AddListener(OnToggled.Invoke);
+        _toggle.onValueChanged.AddListener(InvokeOnValueChanged);
     }
     #endregion
 
 
     #region Internal Functions
+    internal override void SetValue(bool value)
+    {
+        _value = value;
+        _toggle.SetIsOnWithoutNotify(value);
+        InvokeOnValueChanged(value);
+    }
     #endregion
 
 
